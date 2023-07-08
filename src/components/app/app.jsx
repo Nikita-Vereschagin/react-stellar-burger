@@ -39,7 +39,7 @@ const App = () => {
     fetch(`${domain}ingredients`)
       .then(res => isOk(res))
       .then(res => dispatch(SET_APIDATA(res.data)))
-      .catch(err => console.log(`Что-то пошло не так :( Ошибка: ${err}`))
+      .catch(err => console.log(`Что-то пошло не так :(; Ошибка: ${err}`))
   }, [])
 
   const subOrder = (burgerList) => {
