@@ -1,0 +1,14 @@
+.container {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    gap: 8px;
+    width: max-content;
+    height: max-content;
+    margin: 0;
+    padding: 0px 20px;
+}
+
+.a {
+    text-decoration: none;
+    appearance: none;
+}

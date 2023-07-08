@@ -1,0 +1,28 @@
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 88px;
+    align-items: center;
+    position: relative;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    gap: 8px;
+    width: max-content;
+    height: max-content;
+    margin: 0;
+}
+
+.color {
+    color: white;
+}
+
+.logo {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

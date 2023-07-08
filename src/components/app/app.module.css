@@ -4,4 +4,17 @@
   height: 100vh;
   background-color: #131316;
   color: #f2f2f3;
+  max-width: 1200px;
+  align-items: start;
+  padding: 40px 0;
+  box-sizing: border-box;
+  margin: auto;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  gap: 40px;
+  width: 100%;
 }

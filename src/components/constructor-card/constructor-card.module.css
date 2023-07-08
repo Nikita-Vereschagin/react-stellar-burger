@@ -1,0 +1,7 @@
+.card {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    grid-template-rows: min-content;
+    gap: 0 13.5px;
+    align-items: center;
+}
