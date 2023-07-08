@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "./static/css/main.3a5dae51.css",
-    "main.js": "./static/js/main.ebf134c9.js",
-    "static/js/787.438bf4e7.chunk.js": "./static/js/787.438bf4e7.chunk.js",
-    "index.html": "./index.html",
-    "main.3a5dae51.css.map": "./static/css/main.3a5dae51.css.map",
-    "main.ebf134c9.js.map": "./static/js/main.ebf134c9.js.map",
-    "787.438bf4e7.chunk.js.map": "./static/js/787.438bf4e7.chunk.js.map"
+    "main.css": "/react-stellar-burger/static/css/main.3a5dae51.css",
+    "main.js": "/react-stellar-burger/static/js/main.43f07e6f.js",
+    "static/js/787.438bf4e7.chunk.js": "/react-stellar-burger/static/js/787.438bf4e7.chunk.js",
+    "index.html": "/react-stellar-burger/index.html",
+    "main.3a5dae51.css.map": "/react-stellar-burger/static/css/main.3a5dae51.css.map",
+    "main.43f07e6f.js.map": "/react-stellar-burger/static/js/main.43f07e6f.js.map",
+    "787.438bf4e7.chunk.js.map": "/react-stellar-burger/static/js/787.438bf4e7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3a5dae51.css",
-    "static/js/main.ebf134c9.js"
+    "static/js/main.43f07e6f.js"
   ]
 }
