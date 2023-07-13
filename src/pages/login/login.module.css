@@ -1,0 +1,6 @@
+.box{
+    display: grid;
+    grid-template-columns: max-content;
+    justify-content: center;
+    padding: 0;
+}

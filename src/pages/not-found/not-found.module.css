@@ -1,0 +1,13 @@
+.content{
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+}
+.error{
+    background-image: url(../../images/error.jpg);
+    height: min-content;
+    width: min-content;
+    border-radius: 20px;
+}

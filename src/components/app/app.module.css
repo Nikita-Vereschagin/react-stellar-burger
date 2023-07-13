@@ -14,5 +14,6 @@
 .content {
   display: grid;
   height: max-content;
+  align-content: center;
   width: 100%;
 }

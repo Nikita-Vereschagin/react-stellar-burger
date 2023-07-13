@@ -11,6 +11,13 @@ import AppHeader from "../app-header/app-header"
 import { SET_APIDATA } from "../../services/ingredientsSlice";
 import { SET_ORDER_NUMBER } from "../../services/orderSlice";
 
+import { Routes, Route } from 'react-router-dom';
+
+import HomePage from "../../pages/home/home";
+import NotFoundPage from "../../pages/not-found/not-found";
+import LoginPage from "../../pages/login/login";
+
+
             //Constants//
 
 const domain = 'https://norma.nomoreparties.space/api/';
@@ -53,15 +60,19 @@ const App = () => {
   }
 
   return (
-    <div className={styles.app}>
+      <div className={styles.app}>
 
-      <AppHeader />
+        <AppHeader />
 
-      <main className={styles.content}>
+        <main className={styles.content}>
+          <Routes>
+            <Route path="/" element={<HomePage subOrder={subOrder}/>} />
+            <Route path="/login" element={<LoginPage/>} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </main>
 
-      </main>
-
-    </div>
+      </div>
   );
 }
 
