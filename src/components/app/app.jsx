@@ -63,12 +63,16 @@ const App = () => {
       <div className={styles.app}>
 
         <AppHeader />
+        
 
         <main className={styles.content}>
           <Routes>
-            <Route path="/" element={<HomePage subOrder={subOrder}/>} />
+            <Route path="/" element={<HomePage subOrder={subOrder} />} />
+
+            <Route path="/error"  element={<NotFoundPage />} />
+            
             <Route path="/login" element={<LoginPage/>} />
-            <Route path="*" element={<NotFoundPage />} />
+            
           </Routes>
         </main>
 

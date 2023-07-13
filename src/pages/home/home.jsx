@@ -10,6 +10,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 const HomePage = ({subOrder}) => {
+  
   return (
       <div className={styles.content}>
         <DndProvider backend={HTML5Backend}>

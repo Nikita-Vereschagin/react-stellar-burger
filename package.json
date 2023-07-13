@@ -1,7 +1,7 @@
 {
   "name": "react-burger-starter",
   "version": "0.1.0",
-  "homepage": "https://nikita-vereschagin.github.io/react-stellar-burger",
+  "homepage": "https://nikita-vereschagin.github.io/react-stellar-burger/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.7.2",

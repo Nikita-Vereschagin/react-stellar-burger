@@ -13,7 +13,8 @@
 
 .content {
   display: grid;
-  height: max-content;
+  height: 100%;
   align-content: center;
+  justify-content: center;
   width: 100%;
 }
