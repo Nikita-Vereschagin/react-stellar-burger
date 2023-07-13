@@ -13,8 +13,6 @@
 
 .content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-content: center;
-  gap: 40px;
+  height: max-content;
   width: 100%;
 }
