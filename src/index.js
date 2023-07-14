@@ -6,16 +6,16 @@ import rootReducer from "./services/reducers/rootReducer";
 import "./index.css";
 import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 
 const store = configureStore({reducer: rootReducer, devTools: process.env.NODE_ENV !== 'production',})
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+      <HashRouter>
         <App />
-      </BrowserRouter>
+      </HashRouter>
       
     </Provider>
   </React.StrictMode>,

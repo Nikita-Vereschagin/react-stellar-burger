@@ -73,7 +73,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomePage subOrder={subOrder} />} />
 
-            <Route path="/error"  element={<NotFoundPage />} />
+            <Route path="*"  element={<NotFoundPage />} />
             
             <Route path="/login" element={<LoginPage/>} />
 
@@ -83,7 +83,7 @@ const App = () => {
 
             <Route path="/reset-password" element={<ResetPasswordPage/>}/>
 
-            <Route path="*" element={<ProfilePage />}/>
+            <Route path="/profile" element={<ProfilePage />}/>
             
           </Routes>
         </main>
