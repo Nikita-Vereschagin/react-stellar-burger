@@ -62,12 +62,12 @@ const BurgerConstructor = (props) => {
             return 'Не хватает начинки'
         }
 
-    }, [burgerData])
+    }, [bun, ingredients])
 
 
     const moveCard = useCallback((dragIndex, hoverIndex) => {
         dispatch(SWAP_INGREDIENT({ dragIndex, hoverIndex }))
-    }, [])
+    }, [dispatch])
 
             //Facilities for styles etc//
 
