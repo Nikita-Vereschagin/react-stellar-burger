@@ -63,6 +63,42 @@ const App = () => {
       .catch(err => console.log(`Что-то пошло не так :( Ошибка: ${err}`))
   }
 
+  const signIn = (data) => {
+    const {email, password} = data
+    fetch(`${domain}auth/login`, {
+      method: 'POST',
+      body: JSON.stringify({
+        email: email,
+        password: password
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => isOk(res))
+      .then(res => res.success ? console.log('all good') : null)
+      .catch(err => console.log(`Что-то пошло не так :( Ошибка: ${err}`))
+  }
+
+  const register = (data) => {
+    const {email, password, name} = data
+    fetch(`${domain}auth/register`, {
+      method: 'POST',
+      body: JSON.stringify({
+        email: email,
+        password: password,
+        name: name
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => isOk(res))
+      .then(res => res.success ? console.log('all good') : null)
+      .catch(err => console.log(`Что-то пошло не так :( Ошибка: ${err}`))
+  }
+
+
   return (
       <div className={styles.app}>
 
@@ -71,19 +107,22 @@ const App = () => {
 
         <main className={styles.content}>
           <Routes>
-            <Route path="/" element={<HomePage subOrder={subOrder} />} />
 
-            <Route path="*"  element={<NotFoundPage />} />
             
-            <Route path="/login" element={<LoginPage/>} />
+            
+            <Route path="/login" element={<LoginPage sub={signIn}/>} />
 
-            <Route path="/register" element={<RegistrationPage/>}/>
+            <Route path="/register" element={<RegistrationPage sub={register}/>}/>
 
-            <Route path="/forgot-password" element={<ForgotPasswordPage/>}/>
+            <Route path="/forgot-password" element={<ForgotPasswordPage/>} />
 
             <Route path="/reset-password" element={<ResetPasswordPage/>}/>
 
-            <Route path="/profile" element={<ProfilePage />}/>
+            <Route path="/profile" element={<ProfilePage />} />
+
+            <Route path="*"  element={<NotFoundPage />} />
+
+            <Route path="/" element={<HomePage subOrder={subOrder} />} />
             
           </Routes>
         </main>

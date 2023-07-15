@@ -8,7 +8,7 @@ const NavigationItem = (props) => {
     return (
         <div className={navStyles.container}>
             {props.children}
-            <a className={`${props.class} ${navStyles.a}`} href={props.link}>{props.text}</a>
+            <a className={`${props.class} ${navStyles.a}`} style={{color: props.style}} href={props.link}>{props.text}</a>
         </div>
     )
 }

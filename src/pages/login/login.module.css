@@ -19,3 +19,8 @@
 .link:active{
     color: white;
 }
+
+.btn{
+    width: min-content;
+    justify-self: center;
+}

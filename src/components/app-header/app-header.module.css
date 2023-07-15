@@ -16,13 +16,18 @@
     margin: 0;
 }
 
-.color {
-    color: white;
+.logo {
+    margin: auto;
+    display: flex;
+    width: max-content;
+    justify-content: center;
+    text-decoration: none;
+    height: max-content;
 }
 
-.logo {
-    position: absolute;
-    width: 100%;
+.link{
+    text-decoration: none;
     display: flex;
-    justify-content: center;
+    height: max-content;
+    width: max-content;
 }
