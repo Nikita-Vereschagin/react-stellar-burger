@@ -20,6 +20,7 @@ import RegistrationPage from "../../pages/register/register";
 import ForgotPasswordPage from "../../pages/forgot-password/forgot-password";
 import ResetPasswordPage from "../../pages/reset-password/reset-password";
 import ProfilePage from "../../pages/profile/profile";
+import { ProvideAuth } from "../../services/auth";
 
 
             //Constants//
@@ -63,43 +64,8 @@ const App = () => {
       .catch(err => console.log(`Что-то пошло не так :( Ошибка: ${err}`))
   }
 
-  const signIn = (data) => {
-    const {email, password} = data
-    fetch(`${domain}auth/login`, {
-      method: 'POST',
-      body: JSON.stringify({
-        email: email,
-        password: password
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(res => isOk(res))
-      .then(res => res.success ? console.log('all good') : null)
-      .catch(err => console.log(`Что-то пошло не так :( Ошибка: ${err}`))
-  }
-
-  const register = (data) => {
-    const {email, password, name} = data
-    fetch(`${domain}auth/register`, {
-      method: 'POST',
-      body: JSON.stringify({
-        email: email,
-        password: password,
-        name: name
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(res => isOk(res))
-      .then(res => res.success ? console.log('all good') : null)
-      .catch(err => console.log(`Что-то пошло не так :( Ошибка: ${err}`))
-  }
-
-
   return (
+    <ProvideAuth>
       <div className={styles.app}>
 
         <AppHeader />
@@ -110,9 +76,9 @@ const App = () => {
 
             
             
-            <Route path="/login" element={<LoginPage sub={signIn}/>} />
+            <Route path="/login" element={<LoginPage/>} />
 
-            <Route path="/register" element={<RegistrationPage sub={register}/>}/>
+            <Route path="/register" element={<RegistrationPage/>}/>
 
             <Route path="/forgot-password" element={<ForgotPasswordPage/>} />
 
@@ -128,6 +94,7 @@ const App = () => {
         </main>
 
       </div>
+    </ProvideAuth>
   );
 }
 

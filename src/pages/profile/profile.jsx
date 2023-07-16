@@ -19,10 +19,10 @@ const ProfilePage = () => {
   return (
     <div className={styles.box}>
       <nav className={styles.nav}>
-        <Link className={`text text_type_main-medium ${styles.link}`} style={{color: 'white'}}>
+        <Link to='/profile' className={`text text_type_main-medium ${styles.link}`} style={{color: 'white'}}>
           Профиль
         </Link>
-        <Link className={`text text_type_main-medium ${styles.link}`}>
+        <Link to='/profile/orders' className={`text text_type_main-medium ${styles.link}`}>
           История заказов
         </Link>
         <Link className={`text text_type_main-medium ${styles.link}`}>
