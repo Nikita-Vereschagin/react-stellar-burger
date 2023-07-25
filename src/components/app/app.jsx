@@ -11,7 +11,7 @@ import AppHeader from "../app-header/app-header"
 import { SET_APIDATA } from "../../services/ingredientsSlice";
 import { SET_ORDER_NUMBER } from "../../services/orderSlice";
 
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import HomePage from "../../pages/home/home";
 import NotFoundPage from "../../pages/not-found/not-found";
@@ -21,6 +21,7 @@ import ForgotPasswordPage from "../../pages/forgot-password/forgot-password";
 import ResetPasswordPage from "../../pages/reset-password/reset-password";
 import ProfilePage from "../../pages/profile/profile";
 import { ProvideAuth } from "../../services/auth";
+import { ProtectedRouteElement } from "../protectedRouteElement";
 
 
             //Constants//
@@ -39,6 +40,7 @@ const App = () => {
               //Facilities//
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
               //Functions//
 
@@ -48,6 +50,14 @@ const App = () => {
       .then(res => dispatch(SET_APIDATA(res.data)))
       .catch(err => console.log(`Что-то пошло не так :( Ошибка: ${err}`))
   }, [dispatch])
+
+  let accessToken = localStorage.getItem('accessToken')
+
+  useEffect(() => {
+    if (!accessToken){
+      navigate({to: '/login', replace: true})
+    }
+  }, [accessToken])
 
   const subOrder = (burgerList) => {
     fetch(`${domain}orders`, {
@@ -76,19 +86,19 @@ const App = () => {
 
             
             
-            <Route path="/login" element={<LoginPage/>} />
+            <Route path="/login" element={<ProtectedRouteElement element={<LoginPage/>} />} />
 
-            <Route path="/register" element={<RegistrationPage/>}/>
+            <Route path="/register" element={<ProtectedRouteElement element={<RegistrationPage/>} />}/>
 
-            <Route path="/forgot-password" element={<ForgotPasswordPage/>} />
+            <Route path="/forgot-password" element={<ProtectedRouteElement element={<ForgotPasswordPage/>} />} />
 
-            <Route path="/reset-password" element={<ResetPasswordPage/>}/>
+            <Route path="/reset-password" element={<ProtectedRouteElement element={<ResetPasswordPage/>} />}/>
 
-            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />}/>} />
 
             <Route path="*"  element={<NotFoundPage />} />
 
-            <Route path="/" element={<HomePage subOrder={subOrder} />} />
+            <Route path="/" element={<ProtectedRouteElement element={<HomePage subOrder={subOrder} />} />} />
             
           </Routes>
         </main>

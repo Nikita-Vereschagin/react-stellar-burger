@@ -1,5 +1,3 @@
-import { getCookie } from './utils';
-
 const domain = 'https://norma.nomoreparties.space/api/';
 const isOk = (res) => {
   if (res.ok) {
@@ -7,37 +5,6 @@ const isOk = (res) => {
   }
   return Promise.reject(`Ошибка ${res.status}`);
 }
-
-export const deserializeQuery = (query, noQuestionMark = false) => {
-  const pairs = (noQuestionMark ? query : query.substring(1)).split('&');
-  const array = pairs.map(elem => elem.split('='));
-  return Object.fromEntries(array);
-};
-
-export const serializeQuery = queryParams =>
-  Object.entries(queryParams).reduce((acc, [key, value], index, array) => {
-    if (typeof value === 'undefined') {
-      return acc;
-    }
-    const postfix = index === array.length - 1 ? '' : '&';
-    return `${acc}${encodeURIComponent(key)}=${encodeURIComponent(value)}${postfix}`;
-  }, '?');
-
-/* export const getIngredients = async () =>
-  await fetch(`${domain}ingredients`, {
-    method: 'GET',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + getCookie('token')
-    },
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer'
-  })
-    .then(res => res.json())
-    .then(({ countries }) => countries); */
 
 export const loginRequest = async form => {
   return await fetch(`${domain}auth/login`, {
@@ -51,7 +18,7 @@ export const loginRequest = async form => {
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
     body: JSON.stringify(form)
-  });
+  }).then(isOk)
 };
 
 export const registerRequest = async form => {
@@ -66,8 +33,47 @@ export const registerRequest = async form => {
       redirect: 'follow',
       referrerPolicy: 'no-referrer',
       body: JSON.stringify(form)
-    });
+    }).then(isOk)
   };
+
+  export const refreshToken = async () => {
+    return await fetch(`${domain}auth/token`, {
+      method: 'POST',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: JSON.stringify({
+        token: localStorage.getItem('refreshToken'),
+      })
+    }).then(isOk)
+  };
+
+  export const fetchWithRefresh = async (url, options) => {
+    try {
+      const res = await fetch(url, options);
+      return await isOk(res);
+    } catch (err) {
+      if (err.message === "jwt expired") {
+        const refreshData = await refreshToken(); 
+        if (!refreshData.success) {
+          return Promise.reject(refreshData);
+        }
+        localStorage.setItem("refreshToken", refreshData.refreshToken);
+        localStorage.setItem("accessToken", refreshData.accessToken);
+        options.headers.authorization = refreshData.accessToken;
+        const res = await fetch(url, options); 
+        return await isOk(res);
+      } else {
+        return Promise.reject(err);
+      }
+    }
+  };
+  
 
 export const getUserRequest = async () =>
   await fetch(`${domain}auth/user`, {
@@ -77,11 +83,20 @@ export const getUserRequest = async () =>
     credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + getCookie('token')
+      authorization: localStorage.getItem('accessToken')
     },
     redirect: 'follow',
     referrerPolicy: 'no-referrer'
-  });
+  }).then(isOk)
+
+export const patchUserRequest = async () =>
+  await fetch(`${domain}auth/user`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: localStorage.getItem('accessToken')
+    }
+  }).then(isOk)
 
 export const logoutRequest = async () => {
   return await fetch(`${domain}auth/logout`, {
@@ -93,8 +108,11 @@ export const logoutRequest = async () => {
       'Content-Type': 'application/json'
     },
     redirect: 'follow',
-    referrerPolicy: 'no-referrer'
-  });
+    referrerPolicy: 'no-referrer',
+    body: JSON.stringify({
+      token: localStorage.getItem('refreshToken'),
+    })
+  }).then(isOk)
 };
 
 export const resetPasswordRequest= async form => {
@@ -109,7 +127,7 @@ export const resetPasswordRequest= async form => {
       redirect: 'follow',
       referrerPolicy: 'no-referrer',
       body: JSON.stringify(form)
-    });
+    }).then(isOk)
   };
 
   export const forgotPasswordRequest = async form => {
@@ -124,5 +142,5 @@ export const resetPasswordRequest= async form => {
       redirect: 'follow',
       referrerPolicy: 'no-referrer',
       body: JSON.stringify(form)
-    });
+    }).then(isOk)
   };
