@@ -20,9 +20,6 @@ import RegistrationPage from "../../pages/register/register";
 import ForgotPasswordPage from "../../pages/forgot-password/forgot-password";
 import ResetPasswordPage from "../../pages/reset-password/reset-password";
 import ProfilePage from "../../pages/profile/profile";
-import { ProvideAuth } from "../../services/auth";
-import { ProtectedRouteElement } from "../protectedRouteElement";
-
 
             //Constants//
 
@@ -51,14 +48,6 @@ const App = () => {
       .catch(err => console.log(`Что-то пошло не так :( Ошибка: ${err}`))
   }, [dispatch])
 
-  let accessToken = localStorage.getItem('accessToken')
-
-  useEffect(() => {
-    if (!accessToken){
-      navigate({to: '/login', replace: true})
-    }
-  }, [accessToken])
-
   const subOrder = (burgerList) => {
     fetch(`${domain}orders`, {
       method: 'POST',
@@ -75,7 +64,6 @@ const App = () => {
   }
 
   return (
-    <ProvideAuth>
       <div className={styles.app}>
 
         <AppHeader />
@@ -86,25 +74,24 @@ const App = () => {
 
             
             
-            <Route path="/login" element={<ProtectedRouteElement element={<LoginPage/>} />} />
+            <Route path="/login" element={<LoginPage/>} />
 
-            <Route path="/register" element={<ProtectedRouteElement element={<RegistrationPage/>} />}/>
+            <Route path="/register" element={<RegistrationPage/>}/>
 
-            <Route path="/forgot-password" element={<ProtectedRouteElement element={<ForgotPasswordPage/>} />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage/>} />
 
-            <Route path="/reset-password" element={<ProtectedRouteElement element={<ResetPasswordPage/>} />}/>
+            <Route path="/reset-password" element={<ResetPasswordPage/>}/>
 
-            <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />}/>} />
+            <Route path="/profile" element={<ProfilePage />} />
 
             <Route path="*"  element={<NotFoundPage />} />
 
-            <Route path="/" element={<ProtectedRouteElement element={<HomePage subOrder={subOrder} />} />} />
+            <Route path="/" element={<HomePage subOrder={subOrder} />} />
             
           </Routes>
         </main>
 
       </div>
-    </ProvideAuth>
   );
 }
 

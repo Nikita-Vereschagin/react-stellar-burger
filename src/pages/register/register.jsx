@@ -9,12 +9,8 @@ import styles from "./register.module.css";
 import { EmailInput, Button, PasswordInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Navigate } from "react-router-dom";
 
-import { useAuth } from "../../services/auth";
-
 
 const RegistrationPage = () => {
-  let auth = useAuth()
-
   const [form, setValue] = useState({name: '', email: '', password: '' });
 
   const onChange = e => {
@@ -24,19 +20,11 @@ const RegistrationPage = () => {
   let register = useCallback(
     e => {
       e.preventDefault();
-      auth.register(form);
+/*       auth.register(form); */
     },
-    [auth, form]
+    [form]
   );
-
-  if (auth.user) {
-    return (
-      <Navigate
-        to={'/'}
-      />
-    );
-  }
-
+  
   const nameValidate = /^[A-ZА-ЯЁ]+$/i.test(form.name)
 
   const nameErr = form.name && form.name.length < 2 && nameValidate ? 'Имя слишком короткое, минимальная длина: 2' : "Имя может содержать только буквы латинского и русского алфавита"

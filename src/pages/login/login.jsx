@@ -9,11 +9,8 @@ import styles from "./login.module.css";
 import { EmailInput, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Navigate } from "react-router-dom";
 
-import { useAuth } from "../../services/auth";
-
 
 const LoginPage = () => {
-  let auth = useAuth()
 
   const [form, setValue] = useState({email: '', password: '' });
 
@@ -24,21 +21,10 @@ const LoginPage = () => {
   let login = useCallback(
     e => {
       e.preventDefault();
-      auth.signIn(form);
+/*       auth.signIn(form); */
     },
-    [auth, form]
+    [form]
   );
-
-  console.log(auth)
-
-  if (auth.user) {
-    return (
-      <Navigate
-        to={'/'}
-      />
-    );
-  }
-
 
   return (
     <form className={styles.box} onSubmit={login}>
