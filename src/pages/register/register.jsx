@@ -8,19 +8,21 @@ import styles from "./register.module.css";
 
 import { EmailInput, Button, PasswordInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Navigate } from "react-router-dom";
-
+import { register } from "../../services/actions/authActions";
+import { useDispatch } from "react-redux";
 
 const RegistrationPage = () => {
   const [form, setValue] = useState({name: '', email: '', password: '' });
+  const dispatch = useDispatch()
 
   const onChange = e => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
-  let register = useCallback(
+  let registerSub = useCallback(
     e => {
       e.preventDefault();
-/*       auth.register(form); */
+      dispatch(register(form))
     },
     [form]
   );
@@ -30,7 +32,7 @@ const RegistrationPage = () => {
   const nameErr = form.name && form.name.length < 2 && nameValidate ? 'Имя слишком короткое, минимальная длина: 2' : "Имя может содержать только буквы латинского и русского алфавита"
 
   return (
-    <form className={styles.box} onSubmit={register}>
+    <form className={styles.box} onSubmit={registerSub}>
         <h2 className={`text text_type_main-medium ${styles.text}`}>Регистрация</h2>
         <Input placeholder="Имя" value={form.name} name="name" onChange={onChange} extraClass='mb-6 mt-6' errorText={nameErr} error={form.name? form.name.length < 2 || !nameValidate : null} minLength={2} maxLength={30} required/>
         <EmailInput isIcon={false} placeholder="E-mail" name="email" value={form.email} onChange={onChange} required/>

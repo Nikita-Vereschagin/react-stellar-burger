@@ -5,29 +5,30 @@ import { useState, useCallback } from "react";
 
 
 import styles from "./login.module.css";
-
+import { login } from "../../services/actions/authActions";
 import { EmailInput, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 
 const LoginPage = () => {
-
+  const dispatch = useDispatch()
   const [form, setValue] = useState({email: '', password: '' });
 
   const onChange = e => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
-  let login = useCallback(
+  let subLogin = useCallback(
     e => {
       e.preventDefault();
-/*       auth.signIn(form); */
+      dispatch(login(form))
     },
     [form]
   );
 
   return (
-    <form className={styles.box} onSubmit={login}>
+    <form className={styles.box} onSubmit={subLogin}>
         <h2 className={`text text_type_main-medium ${styles.text}`}>Вход</h2>
         <EmailInput name="email" isIcon={false} placeholder="E-mail" value={form.email} onChange={onChange} extraClass='mb-6 mt-6' required/>
         <PasswordInput placeholder="Пароль" name="password" value={form.password} onChange={onChange} required/>

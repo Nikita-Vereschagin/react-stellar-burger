@@ -1,44 +1,48 @@
 
             //Imports//
 
-import { useState } from "react";            
+import { useState, useCallback } from "react";            
 
 
 import styles from "./profile.module.css";
 
-import { EmailInput, PasswordInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import { EmailInput, PasswordInput, Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useSelector, useDispatch } from "react-redux";
+import ProfileNav from "../../components/profile-nav/profile-nav";
+import { patchUser } from "../../services/actions/authActions";
 
 
 const ProfilePage = () => {
-  const [email, setEmail] = useState(null)
-  const [password, setPassword] = useState(null)
-  const [name, setName] = useState(null)
+  const user = useSelector(state => state.user.user)
+  const dispatch = useDispatch()
+  const [form, setValue] = useState({...user, password: '' });
+
+  const onChange = e => {
+    setValue({ ...form, [e.target.name]: e.target.value });
+  };
+
+  let subPatch = useCallback(
+    e => {
+      e.preventDefault();
+      dispatch(patchUser(form))
+    },
+    [form]
+  );
+
   const [disabled, setDisabled] = useState(true)
   
   return (
-    <div className={styles.box}>
-      <nav className={styles.nav}>
-        <Link to='/profile' className={`text text_type_main-medium ${styles.link}`} style={{color: 'white'}}>
-          Профиль
-        </Link>
-        <Link to='/profile/orders' className={`text text_type_main-medium ${styles.link}`}>
-          История заказов
-        </Link>
-        <Link className={`text text_type_main-medium ${styles.link}`}>
-          Выход
-        </Link>
-        <p className={`text text_type_main-small text_color_inactive mt-20`}>В этом разделе вы можете
-изменить свои персональные данные</p>
-      </nav>
-      <div className={styles.inputBox}>
-        <Input icon="EditIcon" placeholder="Имя" value={name} onChange={e => setName(e.target.value)} onIconClick={() => setDisabled(false)} onBlur={() => {setDisabled(true)}} disabled={disabled}/>
-        <EmailInput isIcon={true} placeholder="Логин" value={email} onChange={e => setEmail(e.target.value)} extraClass='mb-6 mt-6'/>
-        <PasswordInput icon="EditIcon" placeholder="Пароль" value={password} onChange={e => setPassword(e.target.value)}/>
-      </div>
-
-    </div>
-    
+      <ProfileNav>
+        <form className={styles.inputBox} onSubmit={subPatch}>
+          <Input icon="EditIcon" placeholder="Имя" name="name" value={form.name} onChange={onChange} onIconClick={() => setDisabled(false)} onBlur={() => {setDisabled(true)}} disabled={disabled}/>
+          <EmailInput isIcon={true} placeholder="Логин" name="email" value={form.email} onChange={onChange} extraClass='mb-6 mt-6'/>
+          <PasswordInput icon="EditIcon" placeholder="Пароль" name="password" value={form.password} onChange={onChange}/>
+          <div className={styles.btnBox}>
+            <Button htmlType="reset" type="primary" size="medium" onClick={() => {setValue({...user, password: '' })}}>Отмена</Button>
+            <Button htmlType="submit" type="primary" size="medium">Сохранить</Button>          
+          </div>
+        </form>
+      </ProfileNav>
   );
 }
 

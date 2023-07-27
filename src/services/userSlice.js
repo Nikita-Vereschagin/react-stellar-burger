@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {login, logout} from "./actions/authActions.js";
+import { login, logout } from "./actions/authActions";
 
 const initialState = {
     user: null,
@@ -7,13 +7,13 @@ const initialState = {
 };
 
 export const userSlice = createSlice({
-  name: "user",
+  name: "USER",
   initialState,
   reducers: {
-    setAuthChecked: (state, action) => {
+    SET_AUTH_CHECKED: (state, action) => {
       state.isAuthChecked = action.payload;
     },
-    setUser: (state, action) => {
+    SET_USER: (state, action) => {
       state.user = action.payload;
     },
   },
@@ -29,6 +29,6 @@ export const userSlice = createSlice({
   }
 });
 
-export const { setAuthChecked, setUser } = userSlice.actions;
+export const { SET_USER, SET_AUTH_CHECKED } = userSlice.actions;
 
-export default userSlice.reducer;
+export default userSlice;

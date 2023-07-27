@@ -45,7 +45,7 @@ const AppHeader = () => {
                     </NavigationItem>
                 </Link>
             </nav>
-            <Link to='/login' className={appHeader.logo}><Logo /></Link>
+            <Link to='/' className={appHeader.logo}><Logo /></Link>
             <Link to='/profile' className={appHeader.link}>
                 <NavigationItem class='text text_type_main-default text_color_inactive' text='Личный кабинет' style={navThree}>
                     <ProfileIcon type={navThree ? "primary" : "secondary"} />

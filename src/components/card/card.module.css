@@ -19,3 +19,11 @@
     grid-template-columns: max-content max-content;
     margin: auto;
 }
+
+.link {
+    display: flex;
+    width: max-content;
+    height: max-content;
+    text-decoration: none;
+    color: unset;
+}
