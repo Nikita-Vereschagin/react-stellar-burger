@@ -8,12 +8,15 @@ import styles from "./login.module.css";
 import { login } from "../../services/actions/authActions";
 import { EmailInput, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 
 const LoginPage = () => {
   const dispatch = useDispatch()
   const [form, setValue] = useState({email: '', password: '' });
+  
+  const user = useSelector(state => state.user.user)
+
 
   const onChange = e => {
     setValue({ ...form, [e.target.name]: e.target.value });

@@ -6,9 +6,7 @@ import { Navigate } from "react-router-dom";
 export const getUser = () => {
     return (dispatch) => {
         return api.getUserRequest().then((res) => {
-            if (res.success){
-                dispatch(SET_USER(res.user));
-            }
+            dispatch(SET_USER(res.user));
         });
     };
 };
