@@ -70,18 +70,17 @@ const BurgerConstructor = () => {
 
     const subClick = (burgerList) => {
         setBtnText('Заказ обрабатывается...')
+        if (!user) {
+            navigate('/login')
+            } 
         api.orderRequest(burgerList)
             .then(res => {
-                if (!user) {
-                navigate('/login')
-                } 
-                else if (user && res.success) {
-                    console.log(res)
+                if (user && res.success) {
                     dispatch(SET_ORDER_NUMBER(res.order.number))
-                }else {navigate('/not-founded')}
+                }
             })
-            .finally(() => setBtnText('Оформить заказ'))
             .catch(err => console.log(`Что-то пошло не так :( Ошибка: ${err}`))
+            .finally(() => setBtnText('Оформить заказ'))
     }
 
 

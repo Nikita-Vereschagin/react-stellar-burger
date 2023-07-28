@@ -46,10 +46,9 @@ const getUserRequest = async () => {
     fetchWithRefresh(`${authDomain}user`, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
-        authorization: localStorage.getItem('accessToken')
+        'Content-Type': 'application/json'
       }
-    }).then(res => isOk(res))
+    }).then(res => res.json())
 }
 
 const patchUserRequest = async (form) => {

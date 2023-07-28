@@ -1,9 +1,10 @@
 
             //Imports//
 
-import styles from './ingredient-details.module.css';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import styles from './ingredient.module.css';
+import { useDispatch, useSelector } from 'react-redux';
 
             //Constants//
 
@@ -11,9 +12,23 @@ const IngredientPage = () => {
 
             //Facilities//
 
-    const arr = useSelector(state => state.ingredientDetails)
-    
-    return (
+    const dispatch = useDispatch()
+    const location = useLocation()
+    const [arr, setArr] = useState(null)
+
+    const ingredientsList = useSelector(store => store.ingredients.ingredientsList)
+
+    useEffect(() => { 
+        ingredientsList.map(el => {
+            if (el._id === location.pathname.split('/')[2]) {
+                setArr(el)
+            } else {
+                return null
+            }})
+    }, [ingredientsList])
+
+
+    return (arr &&
         <div className={styles.popup}>
             <h2 className={`text_type_main-large ${styles.title}`}>Детали ингредиента</h2>
             <img src={arr.image_large} alt={arr.name} className={styles.img} />
@@ -26,10 +41,6 @@ const IngredientPage = () => {
             </ul>
         </div>
     )
-}
-
-IngredientDetails.propTypes = {
-    arr: PropTypes.object
 }
 
 export default IngredientPage
