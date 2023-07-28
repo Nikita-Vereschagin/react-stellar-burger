@@ -17,7 +17,7 @@ const tokenRequest = async () => {
       body: JSON.stringify({
         token: localStorage.getItem('refreshToken')
       })
-    }).then(res => res.json())
+    }).then(res => isOk(res))
 }
 
 const fetchWithRefresh = async (url, options) => {
@@ -49,7 +49,7 @@ const getUserRequest = async () => {
         'Content-Type': 'application/json',
         authorization: localStorage.getItem('accessToken')
       }
-    }).then(res => res.json())
+    }).then(res => isOk(res))
 }
 
 const patchUserRequest = async (form) => {
@@ -61,7 +61,7 @@ const patchUserRequest = async (form) => {
         authorization: localStorage.getItem('accessToken')
       },
       body: JSON.stringify(form)
-    }).then(res => res.json())
+    }).then(res => isOk(res))
 }
 
 const loginRequest = async (form) => {
@@ -72,7 +72,7 @@ const loginRequest = async (form) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(form)
-    }).then(res => res.json())
+    }).then(res => isOk(res))
 }
 
 const registerRequest = async (form) => {
@@ -83,7 +83,7 @@ const registerRequest = async (form) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(form)
-    }).then(res => res.json())
+    }).then(res => isOk(res))
 }
 
 const resetPasswordRequest = async (form) => {
@@ -94,7 +94,7 @@ const resetPasswordRequest = async (form) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(form)
-    }).then(res => res.json())
+    }).then(res => isOk(res))
 }
 
 const forgotPasswordRequest = async (form) => {
@@ -105,7 +105,7 @@ const forgotPasswordRequest = async (form) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(form)
-    }).then(res => res.json())
+    }).then(res => isOk(res))
 }
 
 const logoutRequest = async () => {
@@ -118,8 +118,33 @@ const logoutRequest = async () => {
       body: JSON.stringify({
         token: localStorage.getItem('refreshToken')
       })
-    }).then(res => res.json())
+    }).then(res => isOk(res))
 }
+
+const orderRequest = async (burgerList) => {
+  return await
+    fetch(`${domain}orders`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: localStorage.getItem('accessToken')
+      },
+      body: JSON.stringify({
+        ingredients: burgerList.map(el => el._id)
+      })
+    }).then(res => isOk(res))
+}
+
+const getIngredientsRequest = async () => {
+  return await
+    fetch(`${domain}ingredients`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }).then(res => isOk(res))
+}
+
 
 export const api = {
   getUserRequest,
@@ -129,5 +154,7 @@ export const api = {
   tokenRequest,
   patchUserRequest,
   resetPasswordRequest,
-  forgotPasswordRequest
+  forgotPasswordRequest,
+  getIngredientsRequest,
+  orderRequest
 };

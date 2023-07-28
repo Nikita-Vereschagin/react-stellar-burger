@@ -31,3 +31,7 @@
     height: max-content;
     width: max-content;
 }
+
+.active{
+    color: white;
+}

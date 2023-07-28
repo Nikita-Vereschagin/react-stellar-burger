@@ -7,7 +7,11 @@ export const getUser = () => {
     return (dispatch) => {
         return api.getUserRequest().then((res) => {
             dispatch(SET_USER(res.user));
-        });
+        })
+        .catch(err => {
+            dispatch(SET_USER(null));
+            console.log(`Что-то пошло не так :( Ошибка: ${err}`)
+        })
     };
 };
 
@@ -18,7 +22,12 @@ export const patchUser = (form) => {
                 <Navigate to='/login'/>
                 dispatch(SET_USER(res.user));
             }
-        });
+            
+        })
+        .catch(err => {
+            dispatch(SET_USER(null));
+            console.log(`Что-то пошло не так :( Ошибка: ${err}`)
+        })
     };
 };
 
@@ -26,7 +35,6 @@ export const login = createAsyncThunk(
     "user/login",
     async (form) => {
         const res = await api.loginRequest(form)
-        console.log(res)
         localStorage.setItem("accessToken", res.accessToken);
         localStorage.setItem("refreshToken", res.refreshToken);
         if (res.success) {
@@ -40,33 +48,11 @@ export const register = createAsyncThunk(
     "user/register",
     async (form) => {
         const res = await api.registerRequest(form)
-        console.log(res)
         localStorage.setItem("accessToken", res.accessToken);
         localStorage.setItem("refreshToken", res.refreshToken);
         if (res.success) {
             <Navigate to='/'/>
             return res.user;
-        }
-    }
-);
-
-export const forgotPassword = createAsyncThunk(
-    "user/forgot",
-    async (form) => {
-        const res = await api.forgotPasswordRequest(form)
-        console.log(res)
-        if (res.success) {
-            <Navigate to='/reset-password'/>
-        }
-    }
-);
-
-export const resetPassword = createAsyncThunk(
-    "user/reset",
-    async (form) => {
-        const res = await api.resetPasswordRequest(form)
-        if (res.success) {
-            <Navigate to='/login'/>
         }
     }
 );

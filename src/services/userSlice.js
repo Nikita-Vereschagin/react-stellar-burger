@@ -26,6 +26,13 @@ export const userSlice = createSlice({
         .addCase(logout.fulfilled, (state) => {
           state.user = null;
         })
+        .addCase(login.rejected, (state) => {
+          state.user = null
+          state.isAuthChecked = false;
+        })
+        .addCase(logout.rejected, (state) => {
+          return state.user
+        })
   }
 });
 

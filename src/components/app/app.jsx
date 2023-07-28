@@ -4,12 +4,11 @@
 import styles from "./app.module.css";
 
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import AppHeader from "../app-header/app-header"
 
 import { SET_APIDATA } from "../../services/ingredientsSlice";
-import { SET_ORDER_NUMBER } from "../../services/orderSlice";
 
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
@@ -25,17 +24,7 @@ import { OnlyAuth, OnlyUnAuth } from "../protected-route";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import { SET_INGREDIENT_DETAILS } from "../../services/ingredientDetailsSlice";
-
-            //Constants//
-
-const domain = 'https://norma.nomoreparties.space/api/';
-const isOk = (res) => {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(`Ошибка ${res.status}`);
-}
-
+import { api } from "../../utils/api";
 
 const App = () => {
 
@@ -45,39 +34,15 @@ const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
-  const user = useSelector(state => state.user.user)
 
               //Functions//
 
   useEffect(() => {
     dispatch(checkUserAuth());
-    fetch(`${domain}ingredients`)
-      .then(res => isOk(res))
+    api.getIngredientsRequest()
       .then(res => dispatch(SET_APIDATA(res.data)))
       .catch(err => console.log(`Что-то пошло не так :( Ошибка: ${err}`))
   }, [dispatch])
-
-  const subOrder = (burgerList) => {
-    fetch(`${domain}orders`, {
-      method: 'POST',
-      body: JSON.stringify({
-        ingredients: burgerList.map(el => el._id)
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(res => isOk(res))
-      .then(res => {
-        if (!user) {
-          navigate('/login')
-        } 
-        else if (user && res.success) {
-          dispatch(SET_ORDER_NUMBER(res.order.number))
-        }else {navigate('/not-founded')}
-      })
-      .catch(err => console.log(`Что-то пошло не так :( Ошибка: ${err}`))
-  }
 
   const handleModalClose = () => {
     dispatch(SET_INGREDIENT_DETAILS(null))
@@ -105,7 +70,7 @@ const App = () => {
 
             <Route path="*"  element={<NotFoundPage />} />
 
-            <Route path="/" element={<HomePage subOrder={subOrder} />} />
+            <Route path="/" element={<HomePage />} />
             
           </Routes>
           {background && (

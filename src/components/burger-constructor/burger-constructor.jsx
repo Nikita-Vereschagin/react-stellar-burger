@@ -13,14 +13,18 @@ import { ADD_INGREDIENT, SET_BUN, SWAP_INGREDIENT } from "../../services/constru
 import { INCREASE } from "../../services/ingredientsSlice";
 import { SET_ORDER_NUMBER } from "../../services/orderSlice";
 import ConstructorCard from "../constructor-card/constructor-card";
+import { api } from "../../utils/api";
+import { useNavigate } from "react-router-dom";
 
-const BurgerConstructor = (props) => {
+const BurgerConstructor = () => {
 
             //Facilities//
 
     const dispatch = useDispatch()
-    const { subClick } = props
     const [vis, setVis] = useState(false)
+    const [btnText, setBtnText] = useState('Оформить заказ')
+    const navigate = useNavigate();
+    const user = useSelector(state => state.user.user)
 
             //Constants//
 
@@ -64,6 +68,22 @@ const BurgerConstructor = (props) => {
 
     }, [bun, ingredients])
 
+    const subClick = (burgerList) => {
+        setBtnText('Заказ обрабатывается...')
+        api.orderRequest(burgerList)
+            .then(res => {
+                if (!user) {
+                navigate('/login')
+                } 
+                else if (user && res.success) {
+                    console.log(res)
+                    dispatch(SET_ORDER_NUMBER(res.order.number))
+                }else {navigate('/not-founded')}
+            })
+            .finally(() => setBtnText('Оформить заказ'))
+            .catch(err => console.log(`Что-то пошло не так :( Ошибка: ${err}`))
+    }
+
 
     const moveCard = useCallback((dragIndex, hoverIndex) => {
         dispatch(SWAP_INGREDIENT({ dragIndex, hoverIndex }))
@@ -104,7 +124,7 @@ const BurgerConstructor = (props) => {
                         subClick([bun, ...ingredients, bun])
                         setVis(true)
                     }}
-                        htmlType="button" size="medium" disabled={disabled}>Оформить заказ</Button>
+                        htmlType="button" size="medium" disabled={disabled}>{btnText}</Button>
                 </div>
 
                 {vis && order && (<Modal visible={vis} closePopup={() => {

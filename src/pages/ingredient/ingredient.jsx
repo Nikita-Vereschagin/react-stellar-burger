@@ -7,16 +7,11 @@ import { useSelector } from 'react-redux';
 
             //Constants//
 
-const nutritionText = `text text_type_main-default text_color_inactive`
-
 const IngredientPage = () => {
 
             //Facilities//
 
     const arr = useSelector(state => state.ingredientDetails)
-    const id = arr._id
-
-
     
     return (
         <div className={styles.popup}>
@@ -24,10 +19,10 @@ const IngredientPage = () => {
             <img src={arr.image_large} alt={arr.name} className={styles.img} />
             <h3 className="text text_type_main-medium">{arr.name}</h3>
             <ul className={styles.nutritions}>
-                <li className={nutritionText}>{`Калории,ккал ${arr.calories}`}</li>
-                <li className={nutritionText}>{`Белки, г ${arr.proteins}`}</li>
-                <li className={nutritionText}>{`Жиры, г ${arr.fat}`}</li>
-                <li className={nutritionText}>{`Углеводы, г ${arr.carbohydrates}`}</li>
+                <li className='text text_type_main-default text_color_inactive'>{`Калории,ккал ${arr.calories}`}</li>
+                <li className='text text_type_main-default text_color_inactive'>{`Белки, г ${arr.proteins}`}</li>
+                <li className='text text_type_main-default text_color_inactive'>{`Жиры, г ${arr.fat}`}</li>
+                <li className='text text_type_main-default text_color_inactive'>{`Углеводы, г ${arr.carbohydrates}`}</li>
             </ul>
         </div>
     )

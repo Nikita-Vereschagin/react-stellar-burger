@@ -5,52 +5,34 @@ import { Logo, ProfileIcon, BurgerIcon, ListIcon } from '@ya.praktikum/react-dev
 import NavigationItem from '../navigation-item/navigation-item'
 
 import appHeader from './app-header.module.css';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const AppHeader = () => {
-
-    const location = useLocation()
-    const path = location.pathname 
-
-    let navOne
-    let navTwo
-    let navThree
-
-    if (path === '/profile') {
-        navOne = null
-        navTwo = null
-        navThree = 'white'
-    }else if (path === '/orders') {
-        navOne = null
-        navTwo = 'white'
-        navThree = null
-    }else {
-        navOne = 'white'
-        navTwo = null
-        navThree = null
-    }
-
-
     return (
         <header className={appHeader.header}>
             <nav className={appHeader.container}>
-                <Link to='/' className={appHeader.link}>
-                    <NavigationItem class='text text_type_main-default text_color_inactive' text='Конструктор' style={navOne}>
-                        <BurgerIcon type={navOne ? "primary" : "secondary"} />
-                    </NavigationItem>
-                </Link>
-                <Link to='#' className={appHeader.link}>
-                    <NavigationItem class='text text_type_main-default text_color_inactive' text='Лента заказов' style={navTwo}>
-                        <ListIcon type={navTwo ? "primary" : "secondary"} />
-                    </NavigationItem>
-                </Link>
+                <NavLink style={{textDecoration: 'none'}} to='/' className={({ isActive }) =>  isActive ? appHeader.active : "text_color_inactive"}>
+                    {({isActive})=> 
+                        <NavigationItem class='text text_type_main-default' text='Конструктор'>
+                            <BurgerIcon type={isActive ? "primary" : "secondary" } />
+                        </NavigationItem>}
+                </NavLink>
+                <NavLink style={{textDecoration: 'none'}} to='/orders' className={({ isActive }) =>  isActive ? appHeader.active : "text_color_inactive"} >
+                    {({isActive})=>
+                        <NavigationItem class='text text_type_main-default' text='Лента заказов'>
+                            <ListIcon type={isActive ? "primary" : "secondary"} />
+                        </NavigationItem>}
+                </NavLink>
             </nav>
             <Link to='/' className={appHeader.logo}><Logo /></Link>
-            <Link to='/profile' className={appHeader.link}>
-                <NavigationItem class='text text_type_main-default text_color_inactive' text='Личный кабинет' style={navThree}>
-                    <ProfileIcon type={navThree ? "primary" : "secondary"} />
-                </NavigationItem>
-            </Link>
+            <NavLink style={{textDecoration: 'none'}} to='/profile' className={({ isActive }) =>  isActive ? appHeader.active : "text_color_inactive"}>
+                {({isActive})=>
+                    <NavigationItem class='text text_type_main-default' text='Личный кабинет'>
+                        <ProfileIcon type={isActive ? "primary" : "secondary"} />
+                    </NavigationItem>
+                }
+            </NavLink>
         </header>
     )
 }
