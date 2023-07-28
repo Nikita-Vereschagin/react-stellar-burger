@@ -4,6 +4,7 @@ import { Navigate, useLocation } from "react-router-dom";
 const Protected = ({onlyUnAuth = false, component }) => {
   const {isAuthChecked, user} = useSelector((store) => store.user);
   const location = useLocation();
+  
   if (!isAuthChecked) {
     return null;
   }
