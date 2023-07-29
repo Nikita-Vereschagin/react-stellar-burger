@@ -18,7 +18,7 @@ const AppHeader = () => {
                             <BurgerIcon type={isActive ? "primary" : "secondary" } />
                         </NavigationItem>}
                 </NavLink>
-                <NavLink style={{textDecoration: 'none'}} to='/orders' className={({ isActive }) =>  isActive ? appHeader.active : "text_color_inactive"} >
+                <NavLink style={{textDecoration: 'none'}} to='/feed' className={({ isActive }) =>  isActive ? appHeader.active : "text_color_inactive"} >
                     {({isActive})=>
                         <NavigationItem class='text text_type_main-default' text='Лента заказов'>
                             <ListIcon type={isActive ? "primary" : "secondary"} />

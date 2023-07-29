@@ -1,0 +1,37 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.box{
+    display: grid;
+    gap: 0 60px;
+    grid-template-columns: max-content max-content;
+}
+
+.orderNumbers{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 36px;
+}
+
+.done{
+    color: rgba(0, 204, 204, 1);
+}
+
+.orderBox{
+    min-width: 580px;
+}
+
+.total {
+    text-shadow: 0px 4px 32px 0px rgba(51, 51, 255, 0.5);
+    text-shadow: 0px 0px 8px 8px rgba(51, 51, 255, 0.25);
+    text-shadow: 0px 0px 16px 8px rgba(51, 51, 255, 0.25);
+}
+
+.li {
+    display: flex;
+}

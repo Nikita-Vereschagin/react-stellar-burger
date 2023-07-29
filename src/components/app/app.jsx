@@ -26,6 +26,7 @@ import Modal from "../modal/modal";
 import { SET_INGREDIENT_DETAILS } from "../../services/ingredientDetailsSlice";
 import { api } from "../../utils/api";
 import IngredientPage from "../../pages/ingredient/ingredient";
+import FeedPage from "../../pages/feed/feed";
 
 const App = () => {
 
@@ -68,6 +69,8 @@ const App = () => {
             <Route path="/profile" element={<OnlyAuth component={<ProfilePage />} />} />
             
             <Route path='/ingredients/:ingredientId' element={<IngredientPage />} />
+            
+            <Route path='/feed' element={<FeedPage />} />
 
             <Route path="*"  element={<NotFoundPage />} />
 
