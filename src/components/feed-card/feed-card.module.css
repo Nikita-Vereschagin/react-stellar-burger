@@ -29,8 +29,7 @@
     justify-content: center;
     margin-left: -13px;
     background: rgba(28, 28, 33, 1);
-    border: 2px solid;
-    border-image-source: linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%);
+    border: 2px solid #801ab3;
 }
 
 .number{
