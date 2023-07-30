@@ -1,0 +1,20 @@
+.content{
+    display: flex;
+    height: 500px;
+    min-width: 960px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    background-color: white;
+}
+
+.image{
+    height: 350px;
+    width: 350px;
+}
+
+.text{
+    color: black;
+    display: flex;
+    margin-left: 50px;
+}

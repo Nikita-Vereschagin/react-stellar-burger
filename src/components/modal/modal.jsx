@@ -20,7 +20,7 @@ const Modal = (props) => {
         }
         window.addEventListener('keydown', close)
         return () => window.removeEventListener('keydown', close)
-    }, [props.visible])
+    }, [props, props.visible])
 
     return (
         <>

@@ -1,0 +1,50 @@
+
+            //Imports/       
+
+import styles from "./profile-nav.module.css";
+
+import { Link, useLocation } from "react-router-dom";
+import { logout } from "../../services/actions/authActions";
+import { useDispatch } from "react-redux";
+
+
+const ProfileNav = (props) => {
+
+    const location = useLocation()
+    const path = location.pathname 
+
+    let navOne
+    let navTwo
+
+    if (path === '/profile') {
+        navOne = 'white'
+        navTwo = null
+    }else {
+        navOne = null
+        navTwo = 'white'
+    }
+
+  const dispatch = useDispatch()
+  
+  return (
+    <div className={styles.box}>
+      <nav className={styles.nav}>
+        <Link to='/profile' className={`text text_type_main-medium ${styles.link}`} style={{color: navOne}}>
+          Профиль
+        </Link>
+        <Link to='/profile/orders' className={`text text_type_main-medium ${styles.link}` } style={{color: navTwo}}>
+          История заказов
+        </Link>
+        <Link onClick={() => {dispatch(logout())}} className={`text text_type_main-medium ${styles.link}`}>
+          Выход
+        </Link>
+        <p className={`text text_type_main-small text_color_inactive mt-20`}>В этом разделе вы можете
+изменить свои персональные данные</p>
+      </nav>
+      {props.children}
+    </div>
+    
+  );
+}
+
+export default ProfileNav;

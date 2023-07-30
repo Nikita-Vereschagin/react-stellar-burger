@@ -5,7 +5,7 @@ import styles from "./constructor-card.module.css";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useRef } from 'react';
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useDrop, useDrag } from "react-dnd";
 import { DELETE_INGREDIENT } from "../../services/constructorSlice";
 import { DECREASE } from "../../services/ingredientsSlice";

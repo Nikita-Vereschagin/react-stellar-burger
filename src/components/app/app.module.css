@@ -13,8 +13,8 @@
 
 .content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  height: 100%;
+  align-content: center;
   justify-content: center;
-  gap: 40px;
   width: 100%;
 }

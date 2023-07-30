@@ -13,14 +13,18 @@ import { ADD_INGREDIENT, SET_BUN, SWAP_INGREDIENT } from "../../services/constru
 import { INCREASE } from "../../services/ingredientsSlice";
 import { SET_ORDER_NUMBER } from "../../services/orderSlice";
 import ConstructorCard from "../constructor-card/constructor-card";
+import { api } from "../../utils/api";
+import { useNavigate } from "react-router-dom";
 
-const BurgerConstructor = (props) => {
+const BurgerConstructor = () => {
 
             //Facilities//
 
     const dispatch = useDispatch()
-    const { subClick } = props
     const [vis, setVis] = useState(false)
+    const [btnText, setBtnText] = useState('Оформить заказ')
+    const navigate = useNavigate();
+    const user = useSelector(state => state.user.user)
 
             //Constants//
 
@@ -62,12 +66,31 @@ const BurgerConstructor = (props) => {
             return 'Не хватает начинки'
         }
 
-    }, [burgerData])
 
+    }, [bun, ingredients])
+
+    const subClick = (burgerList) => {
+        setBtnText('Заказ обрабатывается...')
+        if (!user) {
+            navigate('/login')
+            } 
+        api.orderRequest(burgerList)
+            .then(res => {
+                if (user && res.success) {
+                    dispatch(SET_ORDER_NUMBER(res.order.number))
+                }
+            })
+            .catch(err => console.log(`Что-то пошло не так :( Ошибка: ${err}`))
+            .finally(() => setBtnText('Оформить заказ'))
+    }
+
+ 
 
     const moveCard = useCallback((dragIndex, hoverIndex) => {
         dispatch(SWAP_INGREDIENT({ dragIndex, hoverIndex }))
-    }, [])
+
+    }, [dispatch])
+
 
             //Facilities for styles etc//
 
@@ -104,7 +127,7 @@ const BurgerConstructor = (props) => {
                         subClick([bun, ...ingredients, bun])
                         setVis(true)
                     }}
-                        htmlType="button" size="medium" disabled={disabled}>Оформить заказ</Button>
+                        htmlType="button" size="medium" disabled={disabled}>{btnText}</Button>
                 </div>
 
                 {vis && order && (<Modal visible={vis} closePopup={() => {

@@ -25,7 +25,6 @@ const constructorSlice = createSlice({
           const {dragIndex, hoverIndex} = action.payload
           ingredients.splice(hoverIndex, 0, ingredients.splice(dragIndex, 1)[0])
           return {...state, ingredients: ingredients};
-          //Спасибо, что помогали :) Желаю вам всего хорошего, на конец-то всё заработало
         }
     }
 })

@@ -1,0 +1,74 @@
+.box{
+    background: rgba(28, 28, 33, 1);
+    box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.04);
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.06);
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.04);
+    min-width: 584px;
+    display: grid;
+    position: relative;
+    border-radius: 30px;
+    box-sizing: border-box;
+    margin: 0;
+    margin-right: 8px;
+}
+
+.list{
+    display: grid;
+    grid-template-columns: repeat(6, max-content);
+    gap: 0 -13px;
+}
+
+.icon{
+    max-height: 64px;
+    max-width: 64px;
+    padding: 0;
+    display: flex;
+    border-radius: 50%;
+    box-sizing: border-box;
+    overflow: hidden;
+    justify-content: center;
+    margin-left: -13px;
+    background: rgba(28, 28, 33, 1);
+    border: 2px solid;
+    border-image-source: linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%);
+}
+
+.number{
+    min-height: 64px;
+    min-width: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    background: rgba(28, 28, 33, .6);
+    z-index: 100;
+    position: absolute;
+    margin: 0;
+}
+
+.totalPrice {
+    display: grid;
+    column-gap: 10px;
+    height: max-content;
+    grid-template-columns: max-content max-content;
+    position: absolute;
+    min-height: 64px;
+    align-items: center;
+    bottom: 24px;
+    right: 24px;
+}
+
+.date {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+}
+
+.img {
+    display: block;
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+    padding: 0;
+}

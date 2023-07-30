@@ -1,0 +1,12 @@
+.inputBox{
+    display: grid;
+    width: max-content;
+    height: min-content;
+}
+
+.btnBox{
+    display: grid;
+    grid-template-columns: min-content min-content;
+    justify-content: space-around;
+    margin-top: 20px;
+}

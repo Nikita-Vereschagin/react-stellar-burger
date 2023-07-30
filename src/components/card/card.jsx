@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { SET_INGREDIENT_DETAILS } from '../../services/ingredientDetailsSlice';
 import { useDrag } from 'react-dnd';
+import { Link, useLocation } from 'react-router-dom';
 
 const Card = (props) => {
 
@@ -19,7 +20,11 @@ const Card = (props) => {
 
     const dispatch = useDispatch()
 
+    const location = useLocation()
+
     const { arr } = props
+
+    const ingredientId = arr._id
 
                 //DnD//
 
@@ -36,7 +41,8 @@ const Card = (props) => {
     }
 
     return (arr &&
-        <>
+        <Link key={ingredientId} to={`/ingredients/${ingredientId}`} state={{ background: location }} className={styles.link}>
+
             <div ref={cardRef} className={styles.container} onClick={seeDetails}>
                 {arr.count > 0 && <Counter size="default" extraClass="m-1" count={arr.count} />}
                 <img className={styles.img} src={arr.image} alt={arr.name} />
@@ -50,7 +56,7 @@ const Card = (props) => {
                 setModalVisibility(false)
                 dispatch(SET_INGREDIENT_DETAILS(null))
             }}><IngredientDetails /></Modal>)}
-        </>
+        </Link>
     )
 }
 
