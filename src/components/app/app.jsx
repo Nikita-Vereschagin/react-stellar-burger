@@ -1,4 +1,5 @@
 
+
             //Imports//
 
 import styles from "./app.module.css";
@@ -27,6 +28,7 @@ import { SET_INGREDIENT_DETAILS } from "../../services/ingredientDetailsSlice";
 import { api } from "../../utils/api";
 import IngredientPage from "../../pages/ingredient/ingredient";
 import FeedPage from "../../pages/feed/feed";
+
 
 const App = () => {
 

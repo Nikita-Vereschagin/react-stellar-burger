@@ -1,2 +1,2 @@
 # Каноническая работа проекта Stellar Burger 
-# Этап "Промежуточный проект. CRA-заготовка и структура папок под компоненты"
+#  [GitHub Page](https://nikita-vereschagin.github.io/react-stellar-burger/)

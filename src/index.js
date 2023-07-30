@@ -10,13 +10,14 @@ import { HashRouter } from "react-router-dom";
 
 const store = configureStore({reducer: rootReducer, devTools: process.env.NODE_ENV !== 'production',})
 
+const store = configureStore({reducer: rootReducer, devTools: process.env.NODE_ENV !== 'production',})
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <HashRouter>
         <App />
       </HashRouter>
-      
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

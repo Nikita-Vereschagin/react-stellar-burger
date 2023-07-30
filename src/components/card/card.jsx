@@ -19,6 +19,7 @@ const Card = (props) => {
     const [modalVisibility, setModalVisibility] = useState(false)
 
     const dispatch = useDispatch()
+
     const location = useLocation()
 
     const { arr } = props
@@ -41,6 +42,7 @@ const Card = (props) => {
 
     return (arr &&
         <Link key={ingredientId} to={`/ingredients/${ingredientId}`} state={{ background: location }} className={styles.link}>
+
             <div ref={cardRef} className={styles.container} onClick={seeDetails}>
                 {arr.count > 0 && <Counter size="default" extraClass="m-1" count={arr.count} />}
                 <img className={styles.img} src={arr.image} alt={arr.name} />

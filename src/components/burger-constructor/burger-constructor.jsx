@@ -66,6 +66,7 @@ const BurgerConstructor = () => {
             return 'Не хватает начинки'
         }
 
+
     }, [bun, ingredients])
 
     const subClick = (burgerList) => {
@@ -83,10 +84,13 @@ const BurgerConstructor = () => {
             .finally(() => setBtnText('Оформить заказ'))
     }
 
+ 
 
     const moveCard = useCallback((dragIndex, hoverIndex) => {
         dispatch(SWAP_INGREDIENT({ dragIndex, hoverIndex }))
+
     }, [dispatch])
+
 
             //Facilities for styles etc//
 
