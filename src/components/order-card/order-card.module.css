@@ -1,0 +1,43 @@
+.box {
+    display: grid;
+    gap: 0 16px;
+    width: 100%;
+    grid-template-columns: max-content 1fr max-content;
+    height: max-content;
+    text-align: center;
+    align-items: center;
+}
+
+.icon{
+    max-height: 64px;
+    max-width: 64px;
+    padding: 0;
+    display: flex;
+    border-radius: 50%;
+    box-sizing: border-box;
+    overflow: hidden;
+    justify-content: center;
+    margin-left: -13px;
+    background: rgba(28, 28, 33, 1);
+    border: 2px solid #801ab3;
+}
+
+.img {
+    display: block;
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+    padding: 0;
+}
+
+.totalPrice {
+    display: grid;
+    column-gap: 10px;
+    height: max-content;
+    grid-template-columns: max-content max-content;
+    position: absolute;
+    min-height: 64px;
+    align-items: center;
+    bottom: 24px;
+    right: 24px;
+}
