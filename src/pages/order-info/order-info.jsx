@@ -1,37 +1,74 @@
 
             //Imports//
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import OrderCard from '../../components/order-card/order-card';
 import styles from './order-info.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
             //Constants//
 
-const OrderInfoPage = (arr) => {
-
-    const {name, number, status} = arr
+const OrderInfoPage = () => {
+    const location =useLocation()
+    const {orders} = useSelector((state) => state.liveTable.table)
 
     const [rusStatus, setStatus] = useState(null)
+    const [ingredients, setIngredients] = useState([])
+
+    const [arr, setArr] = useState([])
+
+    const ingredientsList = useSelector(store => store.ingredients.ingredientsList)
+
+    useEffect(() => { 
+        orders.map(el => {
+            if (el.number === location.pathname.split('/')[2]) {
+                setArr(el)
+            } else {
+                return null
+            }})
+    }, [orders])
+
+    useEffect(() => { 
+        arr.ingredients.map(id => {
+            ingredientsList.map((el,i) => {
+                if (el._id === id) {
+                    setIngredients([...ingredients, {...el, unicId: i}])
+                }else {
+                    return null
+                }
+            })
+        })
+    }, [ingredientsList, arr.ingredients])
+
+    useEffect(() => { 
+        arr.status === 'done' ? setStatus('Выполнен') : arr.status === 'pending' ? setStatus('Готовится') : setStatus('Заказ отправлен')
+    }, [arr.status])
 
     const totalPrice = useMemo(() => {
         let inredientsPrice = 0
-/*         orderIngredients.forEach(el => inredientsPrice += el.price) */
+        ingredients.forEach(el => inredientsPrice += el.price)
         return inredientsPrice
-    }, [/* orderIngredients */])
+    }, [ingredients])
 
-    status === 'done' ? setStatus('Выполнен') : setStatus('Готовится')
+    
     
             //Facilities//
 
     return (
         <div className={styles.box}>
-            <p className='text text_type_digits-default'>{`#${number}`}</p>
-            <h3 className='text text_type_main-medium mt-10 mb-3'>{name}</h3>
+            <p className='text text_type_digits-default'>{`#${arr.number}`}</p>
+            <h3 className='text text_type_main-medium mt-10 mb-3'>{arr.name}</h3>
             <p className={`text text_type_main-small ${styles.status}`}>{rusStatus}</p>
             <h3 className='text text_type_main-medium mt-15 mb-6'>Состав:</h3>
             <li className={styles.list}>
-                <OrderCard />
+                {
+                    ingredients.map(el => {
+                        return <OrderCard arr={el}/>
+                    })
+                }
+
             </li>
             <FormattedDate className='text text_type_main-default text_color_inactive mt-10' />
             <div className={styles.totalPrice}>

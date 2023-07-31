@@ -7,13 +7,16 @@ import ingredientsSlice from "../ingredientsSlice";
 import orderSlice from "../orderSlice";
 import ingredientDetailsSlice from "../ingredientDetailsSlice";
 import userSlice from "../userSlice";
+import { liveTableReducer } from "../live-table/reducer";
+
 
 const rootReducer = combineReducers({
     burgerConstructor: constructorSlice.reducer,
     ingredients: ingredientsSlice.reducer,
     orderDetails: orderSlice.reducer,
     ingredientDetails: ingredientDetailsSlice.reducer,
-    user: userSlice.reducer
+    user: userSlice.reducer,
+    liveTable: liveTableReducer
 })
 
 export default rootReducer

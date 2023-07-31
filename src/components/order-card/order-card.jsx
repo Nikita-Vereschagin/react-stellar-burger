@@ -6,7 +6,7 @@ import styles from './order-card.module.css';
 
             //Constants//
 
-const OrderCard = (arr) => {
+const OrderCard = ({arr}) => {
 
     const {image_mobile, name, count, price} = arr
 

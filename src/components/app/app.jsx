@@ -3,8 +3,8 @@
 
 import styles from "./app.module.css";
 
-import { useEffect } from 'react';
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 
 import AppHeader from "../app-header/app-header"
 
@@ -28,6 +28,7 @@ import { api } from "../../utils/api";
 import IngredientPage from "../../pages/ingredient/ingredient";
 import FeedPage from "../../pages/feed/feed";
 import OrderInfoPage from "../../pages/order-info/order-info";
+import { connect, disconnect } from "../../services/live-table/actions";
 
 const App = () => {
 
@@ -37,7 +38,6 @@ const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
-
               //Functions//
 
   useEffect(() => {
@@ -46,6 +46,18 @@ const App = () => {
       .then(res => dispatch(SET_APIDATA(res.data)))
       .catch(err => console.log(`Что-то пошло не так :( Ошибка: ${err}`))
   }, [dispatch])
+
+  useEffect(() => {
+    if (location.pathname.indexOf('/feed' >= 0)){
+      dispatch(connect('wss://norma.nomoreparties.space/orders/all'))
+    } else if (location.pathname.indexOf('/profile/orders' >= 0)){
+      dispatch(connect(`wss://norma.nomoreparties.space/orders?token=${localStorage.getItem('accesToken')}`))
+    }  
+    return () => {
+      dispatch(disconnect())
+    }
+  }, [location.pathname])
+
 
   const handleModalClose = () => {
     dispatch(SET_INGREDIENT_DETAILS(null))

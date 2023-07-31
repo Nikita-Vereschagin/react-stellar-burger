@@ -7,8 +7,33 @@ import "./index.css";
 import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
 import { HashRouter } from "react-router-dom";
+import { socketMiddleware } from "./services/middleware/socket-middleware";
+import {
+  connect as LiveTableWsConnect,
+  disconnect as LiveTableWsDisconnect,
+  wsOpen as LiveTableWsOpen,
+  wsClose as LiveTableWsClose,
+  wsMessage as LiveTableWsMessage,
+  wsError as LiveTableWsError,
+  wsConnecting as LiveTableWsConnecting
+} from "./services/live-table/actions";
 
-const store = configureStore({reducer: rootReducer, devTools: process.env.NODE_ENV !== 'production',})
+const liveTableNiddleware = socketMiddleware({
+  wsConnect: LiveTableWsConnect,
+  wsDisconnect: LiveTableWsDisconnect,
+  wsConnecting: LiveTableWsConnecting,
+  onOpen: LiveTableWsOpen,
+  onClose: LiveTableWsClose,
+  onError: LiveTableWsError,
+  onMessage: LiveTableWsMessage,
+})
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(liveTableNiddleware);
+  } , 
+  devTools: process.env.NODE_ENV !== 'production',})
 
 ReactDOM.render(
   <React.StrictMode>
