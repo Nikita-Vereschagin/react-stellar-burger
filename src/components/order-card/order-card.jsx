@@ -2,7 +2,7 @@
             //Imports//
 
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './order-info.module.css';
+import styles from './order-card.module.css';
 
             //Constants//
 

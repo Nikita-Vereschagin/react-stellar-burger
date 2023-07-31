@@ -27,6 +27,7 @@ import { SET_INGREDIENT_DETAILS } from "../../services/ingredientDetailsSlice";
 import { api } from "../../utils/api";
 import IngredientPage from "../../pages/ingredient/ingredient";
 import FeedPage from "../../pages/feed/feed";
+import OrderInfoPage from "../../pages/order-info/order-info";
 
 const App = () => {
 
@@ -70,7 +71,9 @@ const App = () => {
             
             <Route path='/ingredients/:ingredientId' element={<IngredientPage />} />
             
-            <Route path='/feed' element={<FeedPage />} />
+            <Route path='/feed' element={<FeedPage />} >
+              <Route path=":id" element={<OrderInfoPage />} />
+            </Route>
 
             <Route path="*"  element={<NotFoundPage />} />
 

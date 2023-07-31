@@ -1,0 +1,23 @@
+.box{
+    display: grid;
+    grid-template-rows: 1fr;
+    min-width: 640px;
+}
+
+.list{
+    display: grid;
+    grid-template-rows: 1fr;
+    gap: 16px 0;
+}
+
+.totalPrice {
+    display: grid;
+    column-gap: 10px;
+    height: max-content;
+    grid-template-columns: max-content max-content;
+    position: absolute;
+    min-height: 64px;
+    align-items: center;
+    bottom: 0;
+    right: 0;
+}
