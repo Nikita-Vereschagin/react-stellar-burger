@@ -20,8 +20,9 @@ const OrderInfoPage = () => {
     const [statusStyle, setStatusStyle] = useState('white')
 
     const ingredientsList = useSelector(store => store.ingredients.ingredientsList)
-    
+    let ingredients = []
     useEffect(() => { 
+        
         if (location.pathname.includes('/feed')) {
             api.getOrderRequest(location.pathname.split('/')[2]).then((res) => {
                 setArr(res.orders[0])
@@ -33,7 +34,7 @@ const OrderInfoPage = () => {
         }
     }, [location.pathname])
 
-    const ingredients = useMemo(() => {
+    ingredients = useMemo(() => {
         let orderIngredients = []
         ingredientsList.map(listIngredient => {
             arr && arr.ingredients.map((arrayIngredient) => {
@@ -85,7 +86,7 @@ const OrderInfoPage = () => {
             <h3 className='text text_type_main-medium mt-10 mb-3'>{arr.name}</h3>
             <p className={`text text_type_main-small`} style={{color: statusStyle}}>{rusStatus}</p>
             <h3 className='text text_type_main-medium mt-15 mb-6'>Состав:</h3>
-            <li className={styles.list}>
+            <li className={`${styles.list} custom-scroll`}>
                 {
                     ingredients && ingredients.map(el => {
                         return <OrderCard arr={el}/>
