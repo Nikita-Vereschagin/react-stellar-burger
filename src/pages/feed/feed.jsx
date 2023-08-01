@@ -5,18 +5,29 @@ import { useLocation } from 'react-router-dom';
 import styles from './feed.module.css';
 import FeedCard from '../../components/feed-card/feed-card';
 import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
             //Constants//
 
 const FeedPage = () => {
 
     const location = useLocation()
-
-    const { total, totalToday, orders } = useSelector((state) => state.liveTable.table);
+    
+    const data = useSelector((state) => state.liveTable.table);
+    const profileData = useSelector((state) => state.profileLiveTable.table);
 
     const [done, setDone] = useState([])
     const [pending, setPending] = useState([])
+
+    const finishData = useMemo(() =>{
+        if (location.pathname === '/feed'){
+            return data
+        } else {
+            return profileData
+        }
+    },[location.pathname, data, profileData])
+
+    const { total, totalToday, orders } = finishData
 
     useEffect(() => {
         orders && orders.map(el => {

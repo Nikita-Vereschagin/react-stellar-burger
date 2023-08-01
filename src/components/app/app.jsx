@@ -30,6 +30,7 @@ import FeedPage from "../../pages/feed/feed";
 import OrderInfoPage from "../../pages/order-info/order-info";
 import { connect, disconnect } from "../../services/live-table/actions";
 import ProfileNav from "../profile-nav/profile-nav";
+import { profileConnect, profileDisconnect } from "../../services/profile-live-table/actions";
 
 const App = () => {
 
@@ -50,14 +51,15 @@ const App = () => {
 
   useEffect(() => {
     if (location.pathname.includes('/feed')){
-      dispatch(disconnect())
+      dispatch(profileDisconnect())
       dispatch(connect('wss://norma.nomoreparties.space/orders/all'))
     } else if (location.pathname.includes('/profile/orders')){
       dispatch(disconnect())
-      dispatch(connect(`wss://norma.nomoreparties.space/orders?token=${localStorage.getItem('accessToken').replace('Bearer ', '')}`))
+      dispatch(profileConnect(`wss://norma.nomoreparties.space/orders?token=${localStorage.getItem('accessToken').replace('Bearer ', '')}`))
     }  
     return () => {
       dispatch(disconnect())
+      dispatch(profileDisconnect)
     }
   }, [location.pathname, dispatch])
 
@@ -85,8 +87,8 @@ const App = () => {
             <Route path="/profile" element={<OnlyAuth component={<ProfileNav />} />} >
               <Route path='/profile' element={<OnlyAuth component={<ProfilePage />} />} index/>
               <Route path="/profile/orders" element={<OnlyAuth component={<FeedPage />} />}/>
-              <Route path="/profile/orders/:id" element={<OnlyAuth component={<OrderInfoPage />} />}/>
             </Route>
+            <Route path="/profile/orders/:id" element={<OnlyAuth component={<OrderInfoPage />} />}/>
             
             <Route path='/ingredients/:ingredientId' element={<IngredientPage />} />
             

@@ -17,6 +17,15 @@ import {
   wsError as LiveTableWsError,
   wsConnecting as LiveTableWsConnecting
 } from "./services/live-table/actions";
+import {
+  profileConnect as ProfleLiveTableWsConnect,
+  profileDisconnect as ProfleLiveTableWsDisconnect,
+  profileWsOpen as ProfleLiveTableWsOpen,
+  profileWsClose as ProfleLiveTableWsClose,
+  profileWsMessage as ProfleLiveTableWsMessage,
+  profileWsError as ProfleLiveTableWsError,
+  profileWsConnecting as ProfleLiveTableWsConnecting
+} from "./services/profile-live-table/actions";
 
 const liveTableNiddleware = socketMiddleware({
   wsConnect: LiveTableWsConnect,
@@ -28,10 +37,20 @@ const liveTableNiddleware = socketMiddleware({
   onMessage: LiveTableWsMessage,
 })
 
+const profileLiveTableNiddleware = socketMiddleware({
+  wsConnect: ProfleLiveTableWsConnect,
+  wsDisconnect: ProfleLiveTableWsDisconnect,
+  wsConnecting: ProfleLiveTableWsConnecting,
+  onOpen: ProfleLiveTableWsOpen,
+  onClose: ProfleLiveTableWsClose,
+  onError: ProfleLiveTableWsError,
+  onMessage: ProfleLiveTableWsMessage,
+})
+
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(liveTableNiddleware);
+    return getDefaultMiddleware().concat(liveTableNiddleware,profileLiveTableNiddleware);
   } , 
   devTools: process.env.NODE_ENV !== 'production',})
 

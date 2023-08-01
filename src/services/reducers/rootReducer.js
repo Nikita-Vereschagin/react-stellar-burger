@@ -8,6 +8,7 @@ import orderSlice from "../orderSlice";
 import ingredientDetailsSlice from "../ingredientDetailsSlice";
 import userSlice from "../userSlice";
 import { liveTableReducer } from "../live-table/reducer";
+import { profileLiveTableReducer } from "../profile-live-table/reducer";
 
 
 const rootReducer = combineReducers({
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     orderDetails: orderSlice.reducer,
     ingredientDetails: ingredientDetailsSlice.reducer,
     user: userSlice.reducer,
-    liveTable: liveTableReducer
+    liveTable: liveTableReducer,
+    profileLiveTable: profileLiveTableReducer
 })
 
 export default rootReducer

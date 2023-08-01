@@ -2,6 +2,7 @@
     display: grid;
     grid-template-rows: 1fr;
     min-width: 640px;
+    position: relative;
 }
 
 .list{
@@ -16,7 +17,6 @@
     height: max-content;
     grid-template-columns: max-content max-content;
     position: absolute;
-    min-height: 64px;
     align-items: center;
     bottom: 0;
     right: 0;
