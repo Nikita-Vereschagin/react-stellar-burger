@@ -12,7 +12,6 @@ const IngredientPage = () => {
 
             //Facilities//
 
-    const dispatch = useDispatch()
     const location = useLocation()
     const [arr, setArr] = useState(null)
 
@@ -25,7 +24,7 @@ const IngredientPage = () => {
             } else {
                 return null
             }})
-    }, [ingredientsList])
+    }, [ingredientsList, location.pathname])
 
 
     return (arr &&

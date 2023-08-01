@@ -7,12 +7,12 @@ import styles from './order-info.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { api } from '../../utils/api';
 
             //Constants//
 
 const OrderInfoPage = () => {
-    const location =useLocation()
-    const {orders} = useSelector((state) => state.liveTable.table)
+    const location = useLocation()
 
     const [rusStatus, setStatus] = useState(null)
     const [ingredients, setIngredients] = useState([])
@@ -22,13 +22,11 @@ const OrderInfoPage = () => {
     const ingredientsList = useSelector(store => store.ingredients.ingredientsList)
 
     useEffect(() => { 
-        orders.map(el => {
-            if (el.number === location.pathname.split('/')[2]) {
-                setArr(el)
-            } else {
-                return null
-            }})
-    }, [orders])
+        api.getOrderRequest(location.pathname.split('/')[2]).then((res) => {
+            setArr(res)
+            console.log(res)
+        })
+    }, [location.pathname])
 
     useEffect(() => { 
         arr.ingredients.map(id => {
@@ -40,7 +38,7 @@ const OrderInfoPage = () => {
                 }
             })
         })
-    }, [ingredientsList, arr.ingredients])
+    }, [ingredientsList, arr.ingredients, ingredients])
 
     useEffect(() => { 
         arr.status === 'done' ? setStatus('Выполнен') : arr.status === 'pending' ? setStatus('Готовится') : setStatus('Заказ отправлен')

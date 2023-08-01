@@ -114,7 +114,7 @@ const logoutRequest = async () => {
 };
 
 const orderRequest = async (burgerList) => {
-  return await fetch(`${domain}orders`, {
+  return await fetchWithRefresh(`${domain}orders`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -123,6 +123,15 @@ const orderRequest = async (burgerList) => {
     body: JSON.stringify({
       ingredients: burgerList.map((el) => el._id),
     }),
+  }).then((res) => isOk(res));
+};
+
+const getOrderRequest = async (number) => {
+  return await fetch(`${domain}orders/${number}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    },
   }).then((res) => isOk(res));
 };
 
@@ -146,4 +155,5 @@ export const api = {
   forgotPasswordRequest,
   getIngredientsRequest,
   orderRequest,
+  getOrderRequest
 };

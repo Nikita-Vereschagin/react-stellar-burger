@@ -3,8 +3,8 @@
 
 import styles from "./app.module.css";
 
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from 'react';
+import { useDispatch } from "react-redux";
 
 import AppHeader from "../app-header/app-header"
 
@@ -29,6 +29,7 @@ import IngredientPage from "../../pages/ingredient/ingredient";
 import FeedPage from "../../pages/feed/feed";
 import OrderInfoPage from "../../pages/order-info/order-info";
 import { connect, disconnect } from "../../services/live-table/actions";
+import ProfileNav from "../profile-nav/profile-nav";
 
 const App = () => {
 
@@ -48,15 +49,17 @@ const App = () => {
   }, [dispatch])
 
   useEffect(() => {
-    if (location.pathname.indexOf('/feed' >= 0)){
+    if (location.pathname.includes('/feed')){
+      dispatch(disconnect())
       dispatch(connect('wss://norma.nomoreparties.space/orders/all'))
-    } else if (location.pathname.indexOf('/profile/orders' >= 0)){
-      dispatch(connect(`wss://norma.nomoreparties.space/orders?token=${localStorage.getItem('accesToken')}`))
+    } else if (location.pathname.includes('/profile/orders')){
+      dispatch(disconnect())
+      dispatch(connect(`wss://norma.nomoreparties.space/orders?token=${localStorage.getItem('accessToken').replace('Bearer ', '')}`))
     }  
     return () => {
       dispatch(disconnect())
     }
-  }, [location.pathname])
+  }, [location.pathname, dispatch])
 
 
   const handleModalClose = () => {
@@ -79,14 +82,16 @@ const App = () => {
 
             <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPasswordPage/>} />}/>
 
-            <Route path="/profile" element={<OnlyAuth component={<ProfilePage />} />} />
+            <Route path="/profile" element={<OnlyAuth component={<ProfileNav />} />} >
+              <Route path='/profile' element={<OnlyAuth component={<ProfilePage />} />} index/>
+              <Route path="/profile/orders" element={<OnlyAuth component={<FeedPage />} />}/>
+              <Route path="/profile/orders/:id" element={<OnlyAuth component={<OrderInfoPage />} />}/>
+            </Route>
             
             <Route path='/ingredients/:ingredientId' element={<IngredientPage />} />
             
-            <Route path='/feed' element={<FeedPage />} >
-              <Route path=":id" element={<OrderInfoPage />} />
-            </Route>
-
+            <Route path='/feed' element={<FeedPage />} />
+            <Route path="/feed/:id" element={<OrderInfoPage />} />
             <Route path="*"  element={<NotFoundPage />} />
 
             <Route path="/" element={<HomePage />} />
@@ -100,6 +105,23 @@ const App = () => {
                   <Modal closePopup={handleModalClose}>
                     <IngredientDetails />
                   </Modal>
+                }
+              />
+              <Route
+                path='/feed/:id'
+                element={
+                  <Modal closePopup={handleModalClose}>
+                    <OrderInfoPage />
+                  </Modal>
+                }
+              />
+              <Route
+                path='/profile/orders/:id'
+                element={
+                  <OnlyAuth component={
+                    <Modal closePopup={handleModalClose}>
+                      <OrderInfoPage />
+                    </Modal>} />
                 }
               />
             </Routes>

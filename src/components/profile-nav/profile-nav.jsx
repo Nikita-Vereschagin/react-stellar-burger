@@ -3,12 +3,12 @@
 
 import styles from "./profile-nav.module.css";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { logout } from "../../services/actions/authActions";
 import { useDispatch } from "react-redux";
 
 
-const ProfileNav = (props) => {
+const ProfileNav = () => {
 
     const location = useLocation()
     const path = location.pathname 
@@ -41,7 +41,7 @@ const ProfileNav = (props) => {
         <p className={`text text_type_main-small text_color_inactive mt-20`}>В этом разделе вы можете
 изменить свои персональные данные</p>
       </nav>
-      {props.children}
+      <Outlet />
     </div>
     
   );
