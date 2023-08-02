@@ -1,3 +1,5 @@
+import { getUser } from "../actions/authActions";
+
 export const socketMiddleware = (wsActions) => {
   return (store) => {
     let socket = null;
@@ -27,7 +29,10 @@ export const socketMiddleware = (wsActions) => {
         };
 
         socket.onerror = (event) => {
-          dispatch(onError('Error'));
+          dispatch(onError(event));
+          if (event === 'Invalid or missing token'){
+            dispatch(getUser())
+          }
         };
 
         socket.onmessage = (event) => {

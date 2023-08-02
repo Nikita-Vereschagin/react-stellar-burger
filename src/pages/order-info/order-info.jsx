@@ -18,9 +18,9 @@ const OrderInfoPage = () => {
     const [dateFromServer, setDateFromServer] = useState(null)
     const [arr, setArr] = useState(null)
     const [statusStyle, setStatusStyle] = useState('white')
+    let finishIngredients;
 
     const ingredientsList = useSelector(store => store.ingredients.ingredientsList)
-    let ingredients = []
     useEffect(() => { 
         
         if (location.pathname.includes('/feed')) {
@@ -34,14 +34,11 @@ const OrderInfoPage = () => {
         }
     }, [location.pathname])
 
-    ingredients = useMemo(() => {
+    const ingredients = useMemo(() => {
         let orderIngredients = []
         ingredientsList.map(listIngredient => {
             arr && arr.ingredients.map((arrayIngredient) => {
-                if(arrayIngredient === listIngredient._id && orderIngredients.includes(listIngredient)){
-                    console.log('done')
-                    orderIngredients.map(el => el._id === listIngredient._id ? {...listIngredient, count: listIngredient.count += 1} : el)
-                }else if (arrayIngredient === listIngredient._id){
+                if (arrayIngredient === listIngredient._id){
                     orderIngredients.push({...listIngredient, count: 1})
                 }else {
                     return null
@@ -52,6 +49,17 @@ const OrderInfoPage = () => {
         return orderIngredients
     }, [ingredientsList, arr])
 
+    const arrayWithCounters = ingredients && ingredients.map((el) => {
+        const count = ingredients.filter(item => item._id === el._id).length;
+        return { ...el, count: count }
+      })
+
+      if (arr) {
+        const set = new Set(arr.ingredients);
+        const uniqueId = [...set];
+        finishIngredients = uniqueId.map(item => arrayWithCounters.find(i => item == i._id));
+      }
+    
 
     useEffect(() => {
 
@@ -78,7 +86,6 @@ const OrderInfoPage = () => {
         arr && setDateFromServer(arr.createdAt)
     }, [arr])
 
-    console.log(ingredients)
 
     return (arr &&
         <div className={styles.box}>
@@ -88,7 +95,7 @@ const OrderInfoPage = () => {
             <h3 className='text text_type_main-medium mt-15 mb-6'>Состав:</h3>
             <li className={`${styles.list} custom-scroll`}>
                 {
-                    ingredients && ingredients.map(el => {
+                    finishIngredients && finishIngredients.map(el => {
                         return <OrderCard arr={el}/>
                     })
                 }

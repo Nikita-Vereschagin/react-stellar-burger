@@ -1,7 +1,7 @@
 .box{
     display: grid;
     grid-template-rows: 1fr;
-    min-width: 640px;
+    max-width: 640px;
     position: relative;
 }
 
@@ -9,7 +9,8 @@
     display: grid;
     grid-template-rows: 1fr;
     gap: 16px 0;
-    max-height: 60vh;
+    max-height: 25vh;
+    overflow: auto;
 }
 
 .totalPrice {
