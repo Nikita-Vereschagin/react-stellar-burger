@@ -27,7 +27,7 @@ const Modal = (props) => {
             {props.visible && createPortal(
                 <div className={styles.container}>
                     <ModalOverlay visible={props.visible} closePopup={props.closePopup}></ModalOverlay>
-                    <div className={styles.popup}>
+                    <div className={`${styles.popup} ${props.className}`}>
                         <div className={styles.close}><CloseIcon onClick={props.closePopup} /></div>
                         {props.children}
                     </div>

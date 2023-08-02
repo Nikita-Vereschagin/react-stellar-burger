@@ -16,6 +16,7 @@
     display: grid;
     grid-template-columns: repeat(6, max-content);
     gap: 0 -13px;
+    z-index: 1;
 }
 
 .icon{

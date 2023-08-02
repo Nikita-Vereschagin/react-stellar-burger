@@ -104,7 +104,7 @@ const App = () => {
               <Route
                 path='/ingredients/:ingredientId'
                 element={
-                  <Modal closePopup={handleModalClose}>
+                  <Modal visible='true' closePopup={handleModalClose} className='pt-5 pb-5'>
                     <IngredientDetails />
                   </Modal>
                 }
@@ -112,7 +112,7 @@ const App = () => {
               <Route
                 path='/feed/:id'
                 element={
-                  <Modal closePopup={handleModalClose}>
+                  <Modal visible='true' closePopup={handleModalClose} className='pt-5 pb-5'>
                     <OrderInfoPage />
                   </Modal>
                 }
@@ -121,7 +121,7 @@ const App = () => {
                 path='/profile/orders/:id'
                 element={
                   <OnlyAuth component={
-                    <Modal closePopup={handleModalClose}>
+                    <Modal visible='true' closePopup={handleModalClose} className='pt-5 pb-5'>
                       <OrderInfoPage />
                     </Modal>} />
                 }
