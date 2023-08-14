@@ -28,7 +28,7 @@ const ResetPasswordPage = () => {
         }
       })
     },
-    [values, dispatch]
+    [values, dispatch, navigate]
   );
 
   if (localStorage.getItem('enterFlag') === null){

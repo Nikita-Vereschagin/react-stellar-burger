@@ -30,7 +30,7 @@ const ForgotPasswordPage = () => {
           }
         })
     },
-    [values, dispatch]
+    [values, dispatch, navigate]
   );
 
   return (

@@ -8,7 +8,6 @@ import styles from "./profile.module.css";
 
 import { EmailInput, PasswordInput, Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector, useDispatch } from "react-redux";
-import ProfileNav from "../../components/profile-nav/profile-nav";
 import { patchUser } from "../../services/actions/authActions";
 import { useForm } from "../../hooks/useForm";
 
@@ -36,7 +35,6 @@ const ProfilePage = () => {
   const [disabled, setDisabled] = useState(true)
   
   return (
-      <ProfileNav>
         <form className={styles.inputBox} onSubmit={subPatch}>
           <Input icon="EditIcon" placeholder="Имя" name="name" value={values.name} onChange={handleChange} onIconClick={() => setDisabled(false)} onBlur={() => {setDisabled(true)}} disabled={disabled}/>
           <EmailInput isIcon={true} placeholder="Логин" name="email" value={values.email} onChange={handleChange} extraClass='mb-6 mt-6'/>
@@ -46,7 +44,6 @@ const ProfilePage = () => {
             <Button htmlType="submit" type="primary" size="medium">Сохранить</Button>          
           </div>}
         </form>
-      </ProfileNav>
   );
 }
 

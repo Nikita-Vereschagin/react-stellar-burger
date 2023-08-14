@@ -7,8 +7,52 @@ import "./index.css";
 import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
 import { HashRouter } from "react-router-dom";
+import { socketMiddleware } from "./services/middleware/socket-middleware";
+import {
+  connect as LiveTableWsConnect,
+  disconnect as LiveTableWsDisconnect,
+  wsOpen as LiveTableWsOpen,
+  wsClose as LiveTableWsClose,
+  wsMessage as LiveTableWsMessage,
+  wsError as LiveTableWsError,
+  wsConnecting as LiveTableWsConnecting
+} from "./services/live-table/actions";
+import {
+  profileConnect as ProfleLiveTableWsConnect,
+  profileDisconnect as ProfleLiveTableWsDisconnect,
+  profileWsOpen as ProfleLiveTableWsOpen,
+  profileWsClose as ProfleLiveTableWsClose,
+  profileWsMessage as ProfleLiveTableWsMessage,
+  profileWsError as ProfleLiveTableWsError,
+  profileWsConnecting as ProfleLiveTableWsConnecting
+} from "./services/profile-live-table/actions";
 
-const store = configureStore({reducer: rootReducer, devTools: process.env.NODE_ENV !== 'production',})
+const liveTableNiddleware = socketMiddleware({
+  wsConnect: LiveTableWsConnect,
+  wsDisconnect: LiveTableWsDisconnect,
+  wsConnecting: LiveTableWsConnecting,
+  onOpen: LiveTableWsOpen,
+  onClose: LiveTableWsClose,
+  onError: LiveTableWsError,
+  onMessage: LiveTableWsMessage,
+})
+
+const profileLiveTableNiddleware = socketMiddleware({
+  wsConnect: ProfleLiveTableWsConnect,
+  wsDisconnect: ProfleLiveTableWsDisconnect,
+  wsConnecting: ProfleLiveTableWsConnecting,
+  onOpen: ProfleLiveTableWsOpen,
+  onClose: ProfleLiveTableWsClose,
+  onError: ProfleLiveTableWsError,
+  onMessage: ProfleLiveTableWsMessage,
+})
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(liveTableNiddleware,profileLiveTableNiddleware);
+  } , 
+  devTools: process.env.NODE_ENV !== 'production',})
 
 const store = configureStore({reducer: rootReducer, devTools: process.env.NODE_ENV !== 'production',})
 

@@ -1,0 +1,25 @@
+.box{
+    display: grid;
+    grid-template-rows: 1fr;
+    max-width: 640px;
+    position: relative;
+}
+
+.list{
+    display: grid;
+    grid-template-rows: 1fr;
+    gap: 16px 0;
+    max-height: 25vh;
+    overflow: auto;
+}
+
+.totalPrice {
+    display: grid;
+    column-gap: 10px;
+    height: max-content;
+    grid-template-columns: max-content max-content;
+    position: absolute;
+    align-items: center;
+    bottom: 0;
+    right: 0;
+}
