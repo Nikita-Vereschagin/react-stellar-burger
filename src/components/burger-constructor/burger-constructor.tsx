@@ -4,10 +4,9 @@
 import styles from "./burger-constructor.module.css";
 import { CurrencyIcon, Button, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, FC } from 'react';
 import OrderDetails from "../order-details/order-details"
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../..";
 import { useDrop } from "react-dnd";
 import { ADD_INGREDIENT, SET_BUN, SWAP_INGREDIENT } from "../../services/constructorSlice";
 import { INCREASE } from "../../services/ingredientsSlice";
@@ -16,7 +15,24 @@ import ConstructorCard from "../constructor-card/constructor-card";
 import { api } from "../../utils/api";
 import { useNavigate } from "react-router-dom";
 
-const BurgerConstructor = () => {
+export interface IBurgerIngredient {
+    _id: string,
+    name: string,
+    type: string,
+    proteins:number,
+    fat:number,
+    carbohydrates:number,
+    calories:number,
+    price: number,
+    image: string,
+    image_mobile: string,
+    image_large: string,
+    __v: number,
+    unicId?: number,
+    count?: number
+}
+
+const BurgerConstructor: FC = () => {
 
             //Facilities//
 
@@ -39,7 +55,7 @@ const BurgerConstructor = () => {
 
     const [, dropRef] = useDrop({
         accept: 'ingredient',
-        drop(item) {
+        drop(item: IBurgerIngredient) {
             if (item.type === 'bun') {
                 dispatch(SET_BUN(item))
                 dispatch(INCREASE(item))
@@ -54,7 +70,7 @@ const BurgerConstructor = () => {
 
     const totalPrice = useMemo(() => {
         let inredientsPrice = 0
-        ingredients.forEach(el => inredientsPrice += el.price)
+        ingredients.forEach((el: IBurgerIngredient) => inredientsPrice += el.price)
         if (bun && inredientsPrice) {
             return bun.price * 2 + inredientsPrice
         }
@@ -68,7 +84,7 @@ const BurgerConstructor = () => {
 
     }, [bun, ingredients])
 
-    const subClick = (burgerList) => {
+    const subClick = (burgerList: ReadonlyArray<IBurgerIngredient>) => {
         setBtnText('Заказ обрабатывается...')
         if (!user) {
             navigate('/login')
@@ -102,7 +118,7 @@ const BurgerConstructor = () => {
                 {bun && <div className={styles.right}><ConstructorElement type="top" isLocked={true} text={`${bun.name} (верх)`} price={bun.price} thumbnail={bun.image_mobile} /></div>}
 
                 <ul className={`${styles.ul} custom-scroll`}>
-                    {ingredients.map((el, i) => {
+                    {ingredients.map((el: IBurgerIngredient, i: number) => {
                         if (el.type !== "bun") {
                             return <ConstructorCard el={el} key={el.unicId} moveCard={moveCard} index={i} />
                         } return console.error
@@ -117,11 +133,13 @@ const BurgerConstructor = () => {
             <div className={`${styles.btnBox} ${styles.right}`}>
                 
                 <p className={`${priceStyle} ${styles.p}`}>{totalPrice}</p>
-                {isNumber && <CurrencyIcon />}
+                {isNumber && <CurrencyIcon type="primary"/>}
                 <div className={styles.btn}>
                     <Button onClick={() => {
-                        subClick([bun, ...ingredients, bun])
-                        setVis(true)
+                        if (bun && ingredients){
+                            subClick([bun, ...ingredients, bun])
+                            setVis(true)
+                        }
                     }}
                         htmlType="button" size="medium" disabled={disabled}>{btnText}</Button>
                 </div>
@@ -135,10 +153,6 @@ const BurgerConstructor = () => {
 
         </form>
     );
-}
-
-BurgerConstructor.propTypes = {
-    subClick: PropTypes.func
 }
 
 export default BurgerConstructor;

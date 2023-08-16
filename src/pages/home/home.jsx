@@ -9,7 +9,7 @@ import BurgerConstructor from "../../components/burger-constructor/burger-constr
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-const HomePage = ({subOrder}) => {
+const HomePage = () => {
   
   return (
       <div className={styles.content}>

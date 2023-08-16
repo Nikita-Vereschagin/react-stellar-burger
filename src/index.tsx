@@ -2,6 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
+import {
+  TypedUseSelectorHook,
+  useSelector as selectorHook,
+  useDispatch as dispatchHook,
+} from 'react-redux';
 import rootReducer from "./services/reducers/rootReducer";
 import "./index.css";
 import App from "./components/app/app";
@@ -53,6 +58,11 @@ const store = configureStore({
     return getDefaultMiddleware().concat(liveTableNiddleware,profileLiveTableNiddleware);
   } , 
   devTools: process.env.NODE_ENV !== 'production',})
+
+  export type RootState = ReturnType<typeof store.getState>
+  export type AppDispatch = typeof store.dispatch
+  export const useDispatch = () => dispatchHook<AppDispatch>();
+  export const useSelector: TypedUseSelectorHook<RootState> = selectorHook; 
 
 ReactDOM.render(
   <React.StrictMode>

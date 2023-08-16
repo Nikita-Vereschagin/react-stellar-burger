@@ -2,12 +2,18 @@
             //Imports//
 
 import Card from '../card/card';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../..';
 
 import styles from './card-box.module.css'
+import { FC } from 'react';
+import { IBurgerIngredient } from '../burger-constructor/burger-constructor';
 
-const CardBox = (props) => {
+interface ICardBox {
+    text: string,
+    type: string
+}
+
+const CardBox: FC<ICardBox> = (props) => {
 
             //Facilities//
 
@@ -18,7 +24,7 @@ const CardBox = (props) => {
         <li className={styles.container}>
             <h3 className='text text_type_main-medium'>{text}</h3>
             <div className={styles.cardBox}>
-                {ingredientsList.map(item => {
+                {ingredientsList.map((item: IBurgerIngredient) => {
                     if (item.type === type) {
                         return <Card key={item._id} arr={item} />
                     } return null
@@ -28,10 +34,6 @@ const CardBox = (props) => {
     )
 }
 
-CardBox.propTypes = {
-    text: PropTypes.string,
-    type: PropTypes.string
-}
 
 export default CardBox
 

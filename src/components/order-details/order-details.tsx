@@ -3,9 +3,10 @@
 
 import styles from './order-details.module.css';
 import done from '../../images/done.jpg'
-import { useSelector } from 'react-redux';
+import { useSelector } from '../..';
+import { FC } from 'react';
 
-const OrderDetails = () => {
+const OrderDetails: FC = () => {
 
             //Facilities//
 

@@ -1,34 +1,34 @@
 
             //Imports//
 
-import { useState, useRef } from 'react';
+import { useState, useRef, FC } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import CardBox from '../card-box/card-box';
 
 import styles from './burger-ingredients.module.css'
 
-const BurgerIngredients = () => {
+const BurgerIngredients: FC = () => {
 
             //Facilities//
 
     const [current, setCurrent] = useState('one')
 
-    const bunRef = useRef(null)
-    const sauceRef = useRef(null)
-    const mainRef = useRef(null)
+    const bunRef = useRef<HTMLElement>(null)
+    const sauceRef = useRef<HTMLElement>(null)
+    const mainRef = useRef<HTMLElement>(null)
 
             //Functions//
 
     const navigate = () => {
-        const bunTop = bunRef.current.getBoundingClientRect().top
-        const sauceTop = sauceRef.current.getBoundingClientRect().top
-        const mainTop = mainRef.current.getBoundingClientRect().top
+        const bunTop:number | undefined = bunRef.current?.getBoundingClientRect().top
+        const sauceTop:number | undefined = sauceRef.current?.getBoundingClientRect().top
+        const mainTop:number | undefined = mainRef.current?.getBoundingClientRect().top
 
-        if (bunTop >= 0 && bunTop <= 300) {
+        if (bunTop && bunTop >= 0 && bunTop <= 300) {
             setCurrent('one')
-        } else if (sauceTop >= 0 && sauceTop <= 540) {
+        } else if (sauceTop && sauceTop >= 0 && sauceTop <= 540) {
             setCurrent('two')
-        } else if (mainTop >= 0 && mainTop <= 260) {
+        } else if (mainTop && mainTop >= 0 && mainTop <= 260) {
             setCurrent('three')
         }
     }

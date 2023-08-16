@@ -1,10 +1,16 @@
 
             //Imports//
 
+import { FC, ReactNode } from 'react';
 import styles from './modal-overlay.module.css';
-import PropTypes from 'prop-types';
 
-const ModalOverlay = (props) => {
+interface IModalProps {
+    visible: boolean,
+    closePopup: () => void,
+    children?: ReactNode
+  }
+
+const ModalOverlay: FC<IModalProps> = (props) => {
 
             //Facilities for styles etc//
 
@@ -19,9 +25,5 @@ const ModalOverlay = (props) => {
         </div>)
 }
 
-ModalOverlay.propTypes = {
-    visible: PropTypes.bool,
-    closePopup: PropTypes.func
-}
 
 export default ModalOverlay

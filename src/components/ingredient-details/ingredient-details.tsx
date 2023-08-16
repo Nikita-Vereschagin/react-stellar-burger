@@ -2,14 +2,14 @@
             //Imports//
 
 import styles from './ingredient-details.module.css';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { FC } from 'react';
+import { useSelector } from '../..';
 
             //Constants//
 
 const nutritionText = `text text_type_main-default text_color_inactive`
 
-const IngredientDetails = () => {
+const IngredientDetails: FC = () => {
 
             //Facilities//
 
@@ -30,8 +30,5 @@ const IngredientDetails = () => {
     )
 }
 
-IngredientDetails.propTypes = {
-    arr: PropTypes.object
-}
 
 export default IngredientDetails

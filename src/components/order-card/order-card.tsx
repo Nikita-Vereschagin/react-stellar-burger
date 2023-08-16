@@ -3,10 +3,12 @@
 
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './order-card.module.css';
+import { FC } from 'react';
+import { IBurgerIngredient } from '../burger-constructor/burger-constructor';
 
             //Constants//
 
-const OrderCard = ({arr}) => {
+const OrderCard: FC<IBurgerIngredient> = (arr) => {
 
     const {image_mobile, name, count, price} = arr
 
@@ -18,7 +20,7 @@ const OrderCard = ({arr}) => {
             <p className='text text_type_main-default'>{name}</p>
             <div className={styles.totalPrice}>
                 <p className='text text_type_digits-default'>{`${count} x ${price}`}</p>
-                <CurrencyIcon />
+                <CurrencyIcon type='primary'/>
             </div>
         </ul>
     )

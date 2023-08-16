@@ -7,8 +7,9 @@ import NavigationItem from '../navigation-item/navigation-item'
 import appHeader from './app-header.module.css';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
+import { FC } from 'react';
 
-const AppHeader = () => {
+const AppHeader: FC = () => {
     return (
         <header className={appHeader.header}>
             <nav className={appHeader.container}>

@@ -1,10 +1,17 @@
 
             //Imports//
 
+import { FC, ReactNode } from 'react';
 import navStyles from './navigation-item.module.css';
-import PropTypes from 'prop-types';
 
-const NavigationItem = (props) => {
+interface INavigationItem {
+    class: string,
+    text: string,
+    link: string,
+    children?: ReactNode
+}
+
+const NavigationItem: FC<INavigationItem> = (props) => {
     return (
         <div className={navStyles.container}>
             {props.children}
@@ -13,10 +20,5 @@ const NavigationItem = (props) => {
     )
 }
 
-NavigationItem.propTypes = {
-    class: PropTypes.string,
-    text: PropTypes.string,
-    children: PropTypes.element
-}
 
 export default NavigationItem

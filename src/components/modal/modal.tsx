@@ -4,16 +4,22 @@
 import styles from './modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../modal-overlay/modal-overlay';
-import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
-const Modal = (props) => {
+interface IModalProps {
+    visible: boolean,
+    closePopup: () => void,
+    className?: string,
+    children?: ReactNode
+  }
+
+const Modal: FC<IModalProps> = (props) => {
 
             //Functions//
 
     useEffect(() => {
-        const close = (e) => {
+        const close = (e: KeyboardEvent) => {
             if (e.key === 'Escape') {
                 props.closePopup()
             }
@@ -28,19 +34,14 @@ const Modal = (props) => {
                 <div className={styles.container}>
                     <ModalOverlay visible={props.visible} closePopup={props.closePopup}></ModalOverlay>
                     <div className={`${styles.popup} ${props.className}`}>
-                        <div className={styles.close}><CloseIcon onClick={props.closePopup} /></div>
+                        <div className={styles.close}><CloseIcon type='primary' onClick={props.closePopup} /></div>
                         {props.children}
                     </div>
                 </div>
                 ,
-                document.getElementById('modals'))}
+                document.getElementById('modals')!)}
         </>
     )
-}
-
-Modal.propTypes = {
-    visible: PropTypes.bool,
-    closePopup: PropTypes.func
 }
 
 export default Modal

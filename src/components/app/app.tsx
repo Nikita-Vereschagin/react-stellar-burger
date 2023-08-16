@@ -3,7 +3,7 @@
 
 import styles from "./app.module.css";
 
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useDispatch } from "react-redux";
 
 import AppHeader from "../app-header/app-header"
@@ -32,7 +32,7 @@ import { connect, disconnect } from "../../services/live-table/actions";
 import ProfileNav from "../profile-nav/profile-nav";
 import { profileConnect, profileDisconnect } from "../../services/profile-live-table/actions";
 
-const App = () => {
+const App: FC = () => {
 
               //Facilities//
 
@@ -104,7 +104,7 @@ const App = () => {
               <Route
                 path='/ingredients/:ingredientId'
                 element={
-                  <Modal visible='true' closePopup={handleModalClose} className='pt-5 pb-5'>
+                  <Modal visible={true} closePopup={handleModalClose} className='pt-5 pb-5'>
                     <IngredientDetails />
                   </Modal>
                 }
@@ -112,7 +112,7 @@ const App = () => {
               <Route
                 path='/feed/:id'
                 element={
-                  <Modal visible='true' closePopup={handleModalClose} className='pt-5 pb-5'>
+                  <Modal visible={true} closePopup={handleModalClose} className='pt-5 pb-5'>
                     <OrderInfoPage />
                   </Modal>
                 }
@@ -121,7 +121,7 @@ const App = () => {
                 path='/profile/orders/:id'
                 element={
                   <OnlyAuth component={
-                    <Modal visible='true' closePopup={handleModalClose} className='pt-5 pb-5'>
+                    <Modal visible={true} closePopup={handleModalClose} className='pt-5 pb-5'>
                       <OrderInfoPage />
                     </Modal>} />
                 }

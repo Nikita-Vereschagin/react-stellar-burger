@@ -6,9 +6,10 @@ import styles from "./profile-nav.module.css";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { logout } from "../../services/actions/authActions";
 import { useDispatch } from "react-redux";
+import { FC } from "react";
 
 
-const ProfileNav = () => {
+const ProfileNav: FC = () => {
 
     const location = useLocation()
     const path = location.pathname 
@@ -18,9 +19,9 @@ const ProfileNav = () => {
 
     if (path === '/profile') {
         navOne = 'white'
-        navTwo = null
+        navTwo = undefined
     }else {
-        navOne = null
+        navOne = undefined
         navTwo = 'white'
     }
 
@@ -35,7 +36,7 @@ const ProfileNav = () => {
         <Link to='/profile/orders' className={`text text_type_main-medium ${styles.link}` } style={{color: navTwo}}>
           История заказов
         </Link>
-        <Link onClick={() => {dispatch(logout())}} className={`text text_type_main-medium ${styles.link}`}>
+        <Link to='/' onClick={() => {dispatch(logout())}} className={`text text_type_main-medium ${styles.link}`}>
           Выход
         </Link>
         <p className={`text text_type_main-small text_color_inactive mt-20`}>В этом разделе вы можете

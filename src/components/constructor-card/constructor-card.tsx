@@ -3,28 +3,38 @@
 
 import styles from "./constructor-card.module.css";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from "react-redux";
 import { useDrop, useDrag } from "react-dnd";
 import { DELETE_INGREDIENT } from "../../services/constructorSlice";
 import { DECREASE } from "../../services/ingredientsSlice";
+import { IBurgerIngredient } from "../burger-constructor/burger-constructor";
 
+interface IConstructorCard {
+  el: IBurgerIngredient,
+  index: number,
+  moveCard: (i: number, index: number) => void
+}
 
-const ConstructorCard = (props) => {
+interface IIndex extends IBurgerIngredient {
+  index: number
+}
+
+const ConstructorCard: FC<IConstructorCard> = (props) => {
 
             //Facilities//
 
   const { el, index, moveCard } = props
 
   const dispatch = useDispatch()
-  const ref = useRef(null)
+  const ref = useRef<HTMLDivElement>(null)
 
             //DnD//
 
   const [, drop] = useDrop({
     accept: 'swapedCard',
-    hover(item, monitor) {
+    hover(item: IIndex , monitor) {
       const dragIndex = item.index
       const hoverIndex = index
 
@@ -39,9 +49,9 @@ const ConstructorCard = (props) => {
 
       const hoverClientY = clientOffset.y - hoverBoundingRect.top
 
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) { return }
+      if (dragIndex && dragIndex < hoverIndex && hoverClientY < hoverMiddleY) { return }
 
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) { return }
+      if (dragIndex && dragIndex > hoverIndex && hoverClientY > hoverMiddleY) { return }
 
       moveCard(item.index, index)
 
@@ -67,7 +77,7 @@ const ConstructorCard = (props) => {
 
   return (
     <div className={styles.card} key={el.unicId} ref={ref} style={{ opacity: opacity }}>
-      <div style={{ cursor: 'pointer' }} ><DragIcon /></div>
+      <div style={{ cursor: 'pointer' }} ><DragIcon type="primary"/></div>
       <ConstructorElement text={el.name} price={el.price} thumbnail={el.image_mobile} handleClose={() => {
         dispatch(DECREASE(el))
         dispatch(DELETE_INGREDIENT(el.unicId))

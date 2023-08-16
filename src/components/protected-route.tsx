@@ -1,7 +1,13 @@
-import { useSelector } from "react-redux";
+import { FC, ReactNode } from "react";
+import { useSelector } from "..";
 import { Navigate, useLocation } from "react-router-dom";
 
-const Protected = ({onlyUnAuth = false, component }) => {
+interface IProtected {
+  onlyUnAuth: boolean,
+  component: ReactNode
+}
+
+const Protected: FC<IProtected> = (onlyUnAuth, component) => {
   const {isAuthChecked, user} = useSelector((store) => store.user);
   const location = useLocation();
   
@@ -21,7 +27,9 @@ const Protected = ({onlyUnAuth = false, component }) => {
   return component;
 };
 
-export const OnlyAuth = Protected;
-export const OnlyUnAuth = ({ component }) => (
+export const OnlyAuth = (component: ReactNode) => (
+  <Protected onlyUnAuth={false} component={component} />
+);
+export const OnlyUnAuth = (component: ReactNode) => (
   <Protected onlyUnAuth={true} component={component} />
 );
