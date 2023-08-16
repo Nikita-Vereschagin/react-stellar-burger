@@ -1,4 +1,4 @@
-import { createReducer } from '@reduxjs/toolkit';
+import { PayloadAction, createReducer } from '@reduxjs/toolkit';
 import { WebsocketStatus } from '../../utils/live-table';
 import {
   wsConnecting,
@@ -8,9 +8,29 @@ import {
   wsMessage
 } from './actions';
 
-const initialState = {
+interface ITable {
+  success: boolean,
+  orders: {
+    ingredients: string[],
+    _id: string,
+    status: string,
+    number: number,
+    createdAt: string,
+    updatedAt: string
+  }[],
+  total: number,
+  totalToday: number
+} 
+
+interface ILiveTable {
+  status: string | undefined,
+  table:  undefined | ITable | {},
+  connectingError: string | undefined
+}
+
+const initialState: ILiveTable = {
   status: WebsocketStatus.OFFLINE,
-  table: [],
+  table: {},
   connectingError: ''
 }
 
@@ -26,10 +46,10 @@ export const liveTableReducer = createReducer(initialState, (builder) => {
     .addCase(wsClose, state => {
         state.status = WebsocketStatus.OFFLINE;
     })
-    .addCase(wsError, (state, action) => {
+    .addCase(wsError, (state, action: PayloadAction<string | undefined>) => {
         state.connectingError = action.payload;
     })
-    .addCase(wsMessage, (state, action) => {
+    .addCase(wsMessage, (state, action: PayloadAction<ITable | undefined>) => {
       state.table = action.payload
     })
 })

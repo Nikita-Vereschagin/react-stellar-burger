@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { configureStore } from "@reduxjs/toolkit";
+import { ActionCreatorWithoutPayload, configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import {
   TypedUseSelectorHook,
@@ -32,7 +32,7 @@ import {
   profileWsConnecting as ProfleLiveTableWsConnecting
 } from "./services/profile-live-table/actions";
 
-const liveTableNiddleware = socketMiddleware({
+const liveTableMiddleware = socketMiddleware({
   wsConnect: LiveTableWsConnect,
   wsDisconnect: LiveTableWsDisconnect,
   wsConnecting: LiveTableWsConnecting,
@@ -42,7 +42,7 @@ const liveTableNiddleware = socketMiddleware({
   onMessage: LiveTableWsMessage,
 })
 
-const profileLiveTableNiddleware = socketMiddleware({
+const profileLiveTableMiddleware = socketMiddleware({
   wsConnect: ProfleLiveTableWsConnect,
   wsDisconnect: ProfleLiveTableWsDisconnect,
   wsConnecting: ProfleLiveTableWsConnecting,
@@ -55,7 +55,7 @@ const profileLiveTableNiddleware = socketMiddleware({
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(liveTableNiddleware,profileLiveTableNiddleware);
+    return getDefaultMiddleware().concat(liveTableMiddleware,profileLiveTableMiddleware);
   } , 
   devTools: process.env.NODE_ENV !== 'production',})
 

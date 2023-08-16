@@ -8,14 +8,15 @@ import BurgerConstructor from "../../components/burger-constructor/burger-constr
 
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { FC } from "react";
 
-const HomePage = () => {
+const HomePage: FC = () => {
   
   return (
       <div className={styles.content}>
         <DndProvider backend={HTML5Backend}>
           <BurgerIngredients />
-          <BurgerConstructor subClick={subOrder} />
+          <BurgerConstructor />
         </DndProvider>
       </div>
   );

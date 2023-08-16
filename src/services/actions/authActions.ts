@@ -1,9 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { SET_AUTH_CHECKED, SET_USER } from "../userSlice.js";
 import { api } from "../../utils/api.js";
+import { AppDispatch } from "../../index.js";
 
 export const getUser = () => {
-  return (dispatch) => {
+  return (dispatch: AppDispatch) => {
     return api.getUserRequest().then((res) => {
       dispatch(SET_USER(res.user));
     });
@@ -12,7 +13,7 @@ export const getUser = () => {
 
 export const patchUser = createAsyncThunk(
   "user/patch",
-  async (form, thunkAPI) => {
+  async (form: {[key: string]: string}, thunkAPI) => {
     const res = await api.patchUserRequest(form);
     if (res.success) {
       return res.user;
@@ -22,7 +23,7 @@ export const patchUser = createAsyncThunk(
   }
 );
 
-export const login = createAsyncThunk("user/login", async (form, thunkAPI) => {
+export const login = createAsyncThunk("user/login", async (form: {[key: string]: string}, thunkAPI) => {
   const res = await api.loginRequest(form);
   localStorage.setItem("accessToken", res.accessToken);
   localStorage.setItem("refreshToken", res.refreshToken);
@@ -35,7 +36,7 @@ export const login = createAsyncThunk("user/login", async (form, thunkAPI) => {
 
 export const register = createAsyncThunk(
   "user/register",
-  async (form, thunkAPI) => {
+  async (form: {[key: string]: string}, thunkAPI) => {
     const res = await api.registerRequest(form);
     localStorage.setItem("accessToken", res.accessToken);
     localStorage.setItem("refreshToken", res.refreshToken);
@@ -48,7 +49,7 @@ export const register = createAsyncThunk(
 );
 
 export const checkUserAuth = () => {
-  return (dispatch) => {
+  return (dispatch: AppDispatch) => {
     if (localStorage.getItem("accessToken")) {
       dispatch(getUser())
         .catch(() => {

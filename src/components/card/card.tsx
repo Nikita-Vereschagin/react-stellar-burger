@@ -50,7 +50,7 @@ const Card: FC<{ key?: string; arr: IBurgerIngredient }> = ({arr}) => {
             </div>
             {modalVisibility && (<Modal visible={modalVisibility} closePopup={() => {
                 setModalVisibility(false)
-                dispatch(SET_INGREDIENT_DETAILS(null))
+                dispatch(SET_INGREDIENT_DETAILS({}))
             }}><IngredientDetails /></Modal>)}
         </Link>
     )

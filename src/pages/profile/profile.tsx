@@ -7,13 +7,14 @@ import { useState, useCallback, useEffect } from "react";
 import styles from "./profile.module.css";
 
 import { EmailInput, PasswordInput, Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../..";
 import { patchUser } from "../../services/actions/authActions";
 import { useForm } from "../../hooks/useForm";
 
 
 const ProfilePage = () => {
-  const user = useSelector(state => state.user.user)
+  const userState = useSelector(state => state.user.user)
+  const user = userState?.user
   const dispatch = useDispatch()
   const { values, handleChange, setValues } = useForm({...user, password: '' })
   const [formEdited, setFormEdited] = useState(false);

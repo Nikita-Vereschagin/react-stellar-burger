@@ -50,12 +50,13 @@ const App: FC = () => {
   }, [dispatch])
 
   useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken')
     if (location.pathname.includes('/feed')){
       dispatch(profileDisconnect())
       dispatch(connect('wss://norma.nomoreparties.space/orders/all'))
-    } else if (location.pathname.includes('/profile/orders')){
+    } else if (location.pathname.includes('/profile/orders') && accessToken){
       dispatch(disconnect())
-      dispatch(profileConnect(`wss://norma.nomoreparties.space/orders?token=${localStorage.getItem('accessToken').replace('Bearer ', '')}`))
+      dispatch(profileConnect(`wss://norma.nomoreparties.space/orders?token=${accessToken.replace('Bearer ', '') }`))
     }  
     return () => {
       dispatch(disconnect())
@@ -65,7 +66,7 @@ const App: FC = () => {
 
 
   const handleModalClose = () => {
-    dispatch(SET_INGREDIENT_DETAILS(null))
+    dispatch(SET_INGREDIENT_DETAILS({}))
     navigate(-1);
   };
 

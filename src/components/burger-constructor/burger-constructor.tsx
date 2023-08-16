@@ -146,7 +146,7 @@ const BurgerConstructor: FC = () => {
 
                 {vis && order && (<Modal visible={vis} closePopup={() => {
                     setVis(false)
-                    dispatch(SET_ORDER_NUMBER(null))
+                    dispatch(SET_ORDER_NUMBER(0))
                 }}><OrderDetails /></Modal>)}
 
             </div>

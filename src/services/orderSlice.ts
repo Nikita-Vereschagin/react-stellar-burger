@@ -1,10 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+
+
+const initialState: number = 0
 
 const orderSlice = createSlice({
     name: 'ORDER',
-    initialState: null,
+    initialState,
     reducers: {
-        SET_ORDER_NUMBER: (state, action) => {
+        SET_ORDER_NUMBER: (state, action: PayloadAction<number>) => {
                 return state = action.payload
             }
         }

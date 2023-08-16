@@ -1,23 +1,25 @@
 
             //Imports//
 
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, FC } from 'react';
 import OrderCard from '../../components/order-card/order-card';
 import styles from './order-info.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../..';
 import { api } from '../../utils/api';
+import { IBurgerIngredient } from '../../components/burger-constructor/burger-constructor';
+import { IFeedCard } from '../../components/feed-card/feed-card';
 
             //Constants//
 
-const OrderInfoPage = () => {
+const OrderInfoPage: FC = () => {
     const location = useLocation()
 
-    const [rusStatus, setStatus] = useState(null)
-    const [dateFromServer, setDateFromServer] = useState(null)
-    const [arr, setArr] = useState(null)
-    const [statusStyle, setStatusStyle] = useState('white')
+    const [rusStatus, setStatus] = useState<string | null>(null)
+    const [dateFromServer, setDateFromServer] = useState<string | null>(null)
+    const [arr, setArr] = useState<IFeedCard | null>(null)
+    const [statusStyle, setStatusStyle] = useState<string>('white')
     let finishIngredients;
 
     const ingredientsList = useSelector(store => store.ingredients.ingredientsList)
@@ -35,7 +37,7 @@ const OrderInfoPage = () => {
     }, [location.pathname])
 
     const ingredients = useMemo(() => {
-        let orderIngredients = []
+        let orderIngredients: IBurgerIngredient[] = []
         ingredientsList.map(listIngredient => {
             arr && arr.ingredients.map((arrayIngredient) => {
                 if (arrayIngredient === listIngredient._id){
@@ -87,7 +89,7 @@ const OrderInfoPage = () => {
     }, [arr])
 
 
-    return (arr &&
+    return (arr && dateFromServer ? 
         <div className={styles.box}>
             <p className='text text_type_digits-default' style={{textAlign: 'center'}}>{`#${arr.number}`}</p>
             <h3 className='text text_type_main-medium mt-10 mb-3'>{arr.name}</h3>
@@ -104,9 +106,10 @@ const OrderInfoPage = () => {
             <FormattedDate className='text text_type_main-default text_color_inactive mt-10' date={new Date(dateFromServer)}/>
             <div className={styles.totalPrice}>
                 <p className='text text_type_digits-default'>{totalPrice}</p>
-                <CurrencyIcon />
+                <CurrencyIcon type='primary'/>
             </div>
         </div>
+        :  <h1>'Загрузка...'</h1>
     )
 }
 

@@ -8,7 +8,7 @@ const ingredientDetailsSlice = createSlice({
     name: 'INGREDIENT_DETAILS',
     initialState,
     reducers: {
-        SET_INGREDIENT_DETAILS: (state, action: PayloadAction<IBurgerIngredient>) => {
+        SET_INGREDIENT_DETAILS: (state, action: PayloadAction<IBurgerIngredient | {}>) => {
                 return state = action.payload
             }
         }

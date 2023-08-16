@@ -1,18 +1,18 @@
 
             //Imports//
 
-import { useCallback } from "react";            
+import { FC, useCallback } from "react";            
 
 
 import styles from "./login.module.css";
 import { login } from "../../services/actions/authActions";
 import { EmailInput, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../..";
 import { useForm } from "../../hooks/useForm";
 
 
-const LoginPage = () => {
+const LoginPage: FC = () => {
   const dispatch = useDispatch()
   const { values, handleChange } = useForm({email: '', password: '' })
 

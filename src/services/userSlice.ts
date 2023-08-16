@@ -1,7 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { login, logout, patchUser } from "./actions/authActions";
 
-const initialState = {
+interface IUser {
+  success: boolean,
+  accessToken: string,
+  refreshToken: string,
+  user: {
+    email: string,
+    name: string
+  }
+}
+
+interface IUserState {
+  user: null | IUser,
+  loading: boolean,
+  isAuthChecked: boolean,
+  hasError: boolean,
+}
+
+const initialState: IUserState = {
   user: null,
   loading: false,
   isAuthChecked: false,
@@ -12,10 +29,10 @@ export const userSlice = createSlice({
   name: "USER",
   initialState,
   reducers: {
-    SET_AUTH_CHECKED: (state, action) => {
+    SET_AUTH_CHECKED: (state, action: PayloadAction<boolean>) => {
       state.isAuthChecked = action.payload;
     },
-    SET_USER: (state, action) => {
+    SET_USER: (state, action: PayloadAction<IUser | null>) => {
       state.user = action.payload;
     },
   },

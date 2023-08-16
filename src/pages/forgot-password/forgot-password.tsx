@@ -10,9 +10,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useForm } from "../../hooks/useForm";
 import { api } from "../../utils/api";
+import { FC } from 'react';
 
 
-const ForgotPasswordPage = () => {
+
+const ForgotPasswordPage: FC = () => {
   const { values, handleChange } = useForm({email: ''})
   const dispatch = useDispatch()
   const navigate = useNavigate()

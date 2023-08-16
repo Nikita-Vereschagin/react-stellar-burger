@@ -2,18 +2,19 @@
             //Imports//
 
 import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import styles from './ingredient.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from '../..';
+import { IBurgerIngredient } from '../../components/burger-constructor/burger-constructor';
 
             //Constants//
 
-const IngredientPage = () => {
+const IngredientPage: FC = () => {
 
             //Facilities//
 
     const location = useLocation()
-    const [arr, setArr] = useState(null)
+    const [arr, setArr] = useState<IBurgerIngredient | null>(null)
 
     const ingredientsList = useSelector(store => store.ingredients.ingredientsList)
 

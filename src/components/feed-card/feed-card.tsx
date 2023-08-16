@@ -4,7 +4,7 @@
 import { FC, useEffect, useMemo, useState } from 'react';
 import styles from './feed-card.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../..';
 import { Link, useLocation } from 'react-router-dom';
 import { IBurgerIngredient } from '../burger-constructor/burger-constructor';
 
@@ -24,11 +24,11 @@ export interface IFeedCard {
 
             //Constants//
 
-const FeedCard: FC<IFeedCard> = (arr) => {
+const FeedCard: FC<{ arr: IFeedCard }> = (arr) => {
     const location = useLocation()
     const [dateFromServer, setDateFromServer] = useState<string | number | Date>()
-
-    const id = arr.number
+    const array = arr.arr
+    const id = array.number
     const ingredientsList = useSelector(store => store.ingredients.ingredientsList)
 
     const url = useMemo(() => {
@@ -46,7 +46,7 @@ const FeedCard: FC<IFeedCard> = (arr) => {
     const orderIngredients = useMemo(() => {
         let orderIngredients: IOrderIngredient[] = []
         ingredientsList.map((listIngredient: IBurgerIngredient) => {
-            arr.ingredients && arr.ingredients.map((arrayIngredient: string, id) => {
+            array.ingredients && array.ingredients.map((arrayIngredient: string, id) => {
                 if (arrayIngredient === listIngredient._id){
                     orderIngredients.push({...listIngredient, id: id})
                 } else {
@@ -56,7 +56,7 @@ const FeedCard: FC<IFeedCard> = (arr) => {
         })
 
         return orderIngredients
-    }, [ingredientsList, arr.ingredients])
+    }, [ingredientsList, array.ingredients])
 
     const totalPrice = useMemo(() => {
         let inredientsPrice = 0
@@ -65,14 +65,14 @@ const FeedCard: FC<IFeedCard> = (arr) => {
     }, [orderIngredients])
 
     useEffect(() => {
-        setDateFromServer(arr.createdAt)
-    }, [arr.createdAt])
-    return (
-        url && dateFromServer && <Link key={id} to={url} state={{ background: location }} className={styles.link}>
+        setDateFromServer(array.createdAt)
+    }, [array.createdAt])
+    return (url && dateFromServer ?
+        <Link key={id} to={url} state={{ background: location }} className={styles.link}>
             <ul className={`${styles.box} pb-6 pt-6 pr-6 pl-6`}>
-                dateFromServer<FormattedDate className={`text text_type_main-default text_color_inactive ${styles.date}`} date={new Date(dateFromServer)} />
-                <h3 className='text text_type_digits-default mb-6'>{`#${arr.number}`}</h3>
-                <h2 className='text text_type_main-medium'>{arr.name}</h2>
+                <FormattedDate className={`text text_type_main-default text_color_inactive ${styles.date}`} date={new Date(dateFromServer)} />
+                <h3 className='text text_type_digits-default mb-6'>{`#${array.number}`}</h3>
+                <h2 className='text text_type_main-medium'>{array.name}</h2>
                 <li className={`${styles.list} mt-6`}>
                     { 
                         orderIngredients && orderIngredients.map(el => {
@@ -93,6 +93,7 @@ const FeedCard: FC<IFeedCard> = (arr) => {
                 </div>
             </ul>
         </Link>
+        : <h1>'Загрузка...'</h1>
     )
 }
 

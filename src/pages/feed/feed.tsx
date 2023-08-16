@@ -3,21 +3,21 @@
 
 import { useLocation } from 'react-router-dom';
 import styles from './feed.module.css';
-import FeedCard from '../../components/feed-card/feed-card';
-import { useSelector } from 'react-redux';
-import { useEffect, useMemo, useState } from 'react';
+import FeedCard, { IFeedCard } from '../../components/feed-card/feed-card';
+import { useSelector } from '../..';
+import { FC, useEffect, useMemo, useState } from 'react';
 
             //Constants//
 
-const FeedPage = () => {
+const FeedPage: FC = () => {
 
     const location = useLocation()
     
     const data = useSelector((state) => state.liveTable.table);
     const profileData = useSelector((state) => state.profileLiveTable.table);
 
-    const [done, setDone] = useState([])
-    const [pending, setPending] = useState([])
+    const [done, setDone] = useState<number[]>([])
+    const [pending, setPending] = useState<number[]>([])
 
     const finishData = useMemo(() =>{
         if (location.pathname === '/feed'){
@@ -30,7 +30,7 @@ const FeedPage = () => {
     const { total, totalToday, orders } = finishData
 
     useEffect(() => {
-        orders && orders.map(el => {
+        orders && orders.map((el: IFeedCard)  => {
             if (el.status === 'done' && !done.includes(el.number)) {
                 
                 setDone([...done, el.number])
@@ -48,7 +48,7 @@ const FeedPage = () => {
             <div className={styles.box}>
                 <li className={`${styles.list} custom-scroll`}>
                     {
-                        orders && orders.map(el => {
+                        orders && orders.map((el: IFeedCard) => {
                             if (el) {
                                return <FeedCard arr={el} />   
                             }else {
