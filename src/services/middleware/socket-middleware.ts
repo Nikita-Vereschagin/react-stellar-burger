@@ -1,10 +1,14 @@
-import { getUser } from "../actions/authActions";
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { Dispatch } from "react";
+import { MiddlewareAPI } from "redux";
 
-export const socketMiddleware = (wsActions) => {
-  return (store) => {
-    let socket = null;
+interface IAction {type: string, payload: string | URL}
 
-    return (next) => (action) => {
+export const socketMiddleware = (wsActions: {[key: string]: ActionCreatorWithPayload<string> | ActionCreatorWithPayload<void>}) => {
+  return (store: MiddlewareAPI) => {
+    let socket: WebSocket | null = null;
+
+    return (next: Dispatch<IAction>) => (action:  IAction) => {
       const { dispatch } = store;
       const { type } = action;
       const {
@@ -17,7 +21,7 @@ export const socketMiddleware = (wsActions) => {
         wsConnecting,
         wsDisconnect,
       } = wsActions;
-
+// Не пойму, что он от меня хочет. Пожалуйста, намекните ;0
       if (type === wsConnect.type) {
         socket = new WebSocket(action.payload);
         dispatch(wsConnecting());
@@ -28,11 +32,8 @@ export const socketMiddleware = (wsActions) => {
           dispatch(onOpen());
         };
 
-        socket.onerror = (event) => {
+        socket.onerror = (event: Event | string) => {
           dispatch(onError(event));
-          if (event === 'Invalid or missing token'){
-            dispatch(getUser())
-          }
         };
 
         socket.onmessage = (event) => {
@@ -42,7 +43,7 @@ export const socketMiddleware = (wsActions) => {
           dispatch(onMessage(parsedData));
         };
 
-        socket.onclose = (event) => {
+        socket.onclose = () => {
           dispatch(onClose());
         };
 

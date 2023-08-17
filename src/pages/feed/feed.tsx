@@ -51,7 +51,7 @@ const FeedPage: FC = () => {
             <div className={styles.box}>
                 <li className={`${styles.list} custom-scroll`}>
                     {
-                        orders && orders.map((el: { ingredients: string[]; _id: string; status: string; number: number; createdAt: string; updatedAt: string; }) => {
+                        orders.map((el: { ingredients: string[]; _id: string; status: string; number: number; createdAt: string; updatedAt: string; }) => {
                             if (el) {
                                return <FeedCard arr={el} />   
                             }else {
@@ -68,7 +68,7 @@ const FeedPage: FC = () => {
                                 <h3 className='text text_type_main-default mb-6'>Готовы:</h3>
                                 <li className={`text text_type_digits-default ${styles.done} ${styles.li}`}>
                                     {
-                                        done && done.map(el => { 
+                                        done.map(el => { 
                                             if (done.indexOf(el) > 10) {
                                                 return null
                                             } else {
@@ -83,7 +83,7 @@ const FeedPage: FC = () => {
                                 <h3 className='text text_type_main-default mb-6'>В работе:</h3>
                                 <li className={`text text_type_digits-default ${styles.li}`}>
                                 {
-                                        pending && pending.map(el => { 
+                                        pending.map(el => { 
                                             if (pending.indexOf(el) > 10) {
                                                 return null
                                             } else {

@@ -37,8 +37,8 @@ const BurgerConstructor: FC = () => {
             //Facilities//
 
     const dispatch = useDispatch()
-    const [vis, setVis] = useState<boolean>(false)
-    const [btnText, setBtnText] = useState<string>('Оформить заказ')
+    const [vis, setVis] = useState(false)
+    const [btnText, setBtnText] = useState('Оформить заказ')
     const navigate = useNavigate();
     const user = useSelector(state => state.user.user)
 

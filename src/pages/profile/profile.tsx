@@ -17,10 +17,10 @@ const ProfilePage: FC = () => {
   const user = userState?.user
   const dispatch = useDispatch()
   const { values, handleChange, setValues } = useForm({...user, password: '' })
-  const [formEdited, setFormEdited] = useState<boolean>(false);
+  const [formEdited, setFormEdited] = useState(false);
 
   let subPatch = useCallback(
-    e => {
+    (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       dispatch(patchUser(values))
     },
@@ -37,8 +37,8 @@ const ProfilePage: FC = () => {
   
   return (
         <form className={styles.inputBox} onSubmit={subPatch}>
-          <Input icon="EditIcon" placeholder="Имя" name="name" value={values.name} onChange={handleChange} onIconClick={() => setDisabled(false)} onBlur={() => {setDisabled(true)}} disabled={disabled}/>
-          <EmailInput isIcon={true} placeholder="Логин" name="email" value={values.email} onChange={handleChange} extraClass='mb-6 mt-6'/>
+          <Input icon="EditIcon" placeholder="Имя" name="name" value={values.name ? values.name : ''} onChange={handleChange} onIconClick={() => setDisabled(false)} onBlur={() => {setDisabled(true)}} disabled={disabled}/>
+          <EmailInput isIcon={true} placeholder="Логин" name="email" value={values.email ? values.email : ''} onChange={handleChange} extraClass='mb-6 mt-6'/>
           <PasswordInput icon="EditIcon" placeholder="Пароль" name="password" value={values.password} onChange={handleChange}/>
           {formEdited && <div className={styles.btnBox}>
             <Button htmlType="reset" type="primary" size="medium" onClick={() => {setValues({...user, password: '' })}}>Отмена</Button>

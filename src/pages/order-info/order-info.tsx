@@ -19,7 +19,7 @@ const OrderInfoPage: FC = () => {
     const [rusStatus, setStatus] = useState<string | null>(null)
     const [dateFromServer, setDateFromServer] = useState<string | null>(null)
     const [arr, setArr] = useState<IFeedCard | null>(null)
-    const [statusStyle, setStatusStyle] = useState<string>('white')
+    const [statusStyle, setStatusStyle] = useState('white')
     let finishIngredients;
 
     const ingredientsList = useSelector(store => store.ingredients.ingredientsList)

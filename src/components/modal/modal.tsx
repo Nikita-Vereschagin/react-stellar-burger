@@ -4,14 +4,14 @@
 import styles from './modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../modal-overlay/modal-overlay';
-import { FC, ReactNode, useEffect } from 'react';
+import { FC, PropsWithChildren, ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 interface IModalProps {
     visible: boolean,
     closePopup: () => void,
     className?: string,
-    children?: ReactNode
+    children?: FC<PropsWithChildren<IModalProps>> | ReactNode
   }
 
 const Modal: FC<IModalProps> = (props) => {

@@ -12,11 +12,13 @@ import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
 import { IBurgerIngredient } from '../burger-constructor/burger-constructor';
 
-const Card: FC<{ key?: string; arr: IBurgerIngredient }> = ({arr}) => {
+interface ICard { key?: string; arr: IBurgerIngredient }
+
+const Card: FC<ICard> = ({arr}) => {
 
             //Facilities//
 
-    const [modalVisibility, setModalVisibility] = useState<boolean>(false)
+    const [modalVisibility, setModalVisibility] = useState(false)
 
     const dispatch = useDispatch()
     const location = useLocation()

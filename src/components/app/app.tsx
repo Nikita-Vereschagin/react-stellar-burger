@@ -4,7 +4,7 @@
 import styles from "./app.module.css";
 
 import { FC, useEffect } from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../..";
 
 import AppHeader from "../app-header/app-header"
 

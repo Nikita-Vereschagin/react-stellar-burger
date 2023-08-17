@@ -17,7 +17,7 @@ const LoginPage: FC = () => {
   const { values, handleChange } = useForm({email: '', password: '' })
 
   let subLogin = useCallback(
-    e => {
+    (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       dispatch(login(values))
     },

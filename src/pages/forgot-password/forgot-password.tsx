@@ -7,7 +7,7 @@ import styles from "./forgot-password.module.css";
 
 import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../..";
 import { useForm } from "../../hooks/useForm";
 import { api } from "../../utils/api";
 import { FC } from 'react';
@@ -20,7 +20,7 @@ const ForgotPasswordPage: FC = () => {
   const navigate = useNavigate()
 
   let sub = useCallback(
-    e => {
+    (e: React.FormEvent<HTMLFormElement>)=> {
       e.preventDefault();
       api.forgotPasswordRequest(values)
         .then(res => {

@@ -17,7 +17,7 @@ const RegistrationPage: FC = () => {
   const dispatch = useDispatch()
 
   let registerSub = useCallback(
-    e => {
+    (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       dispatch(register(values))
     },
