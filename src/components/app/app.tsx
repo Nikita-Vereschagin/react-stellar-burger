@@ -66,7 +66,7 @@ const App: FC = () => {
 
 
   const handleModalClose = () => {
-    dispatch(SET_INGREDIENT_DETAILS({}))
+    dispatch(SET_INGREDIENT_DETAILS(undefined))
     navigate(-1);
   };
 

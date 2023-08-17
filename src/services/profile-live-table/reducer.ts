@@ -20,13 +20,13 @@ interface ITable {
 
 interface ILiveTable {
   status: string | undefined,
-  table: undefined | ITable | {},
+  table: undefined | ITable,
   connectingError: string | undefined
 }
 
 const initialState: ILiveTable = {
   status: WebsocketStatus.OFFLINE,
-  table: {},
+  table: undefined,
   connectingError: ''
 }
 

@@ -11,7 +11,7 @@ const BurgerIngredients: FC = () => {
 
             //Facilities//
 
-    const [current, setCurrent] = useState('one')
+    const [current, setCurrent] = useState<string>('one')
 
     const bunRef = useRef<HTMLElement>(null)
     const sauceRef = useRef<HTMLElement>(null)

@@ -25,7 +25,7 @@ const constructorSlice = createSlice({
             return { payload: array = {...array, unicId: id} }
           }
         },
-        DELETE_INGREDIENT: (state, action: PayloadAction<number>) => {state.ingredients = [...state.ingredients.filter(el => el.unicId !== action.payload )]},
+        DELETE_INGREDIENT: (state, action: PayloadAction<number | undefined>) => {state.ingredients = [...state.ingredients.filter(el => el.unicId !== action.payload )]},
         SWAP_INGREDIENT: (state, action: PayloadAction<{dragIndex: number, hoverIndex: number}>) => {
           const ingredients = [...state.ingredients]
           const {dragIndex, hoverIndex} = action.payload

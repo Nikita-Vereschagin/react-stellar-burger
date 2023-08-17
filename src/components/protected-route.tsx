@@ -27,9 +27,9 @@ const Protected: FC<IProtected> = (onlyUnAuth, component) => {
   return component;
 };
 
-export const OnlyAuth: FC<{component: ReactNode}> = (component) => (
+export const OnlyAuth: FC<{component: ReactNode }> = (component) => (
   <Protected onlyUnAuth={false} component={component} />
 );
-export const OnlyUnAuth: FC<{component: ReactNode}> = (component) => (
+export const OnlyUnAuth: FC<{component: ReactNode }> = (component) => (
   <Protected onlyUnAuth={true} component={component} />
 );

@@ -22,17 +22,20 @@ const FeedPage: FC = () => {
     const finishData = useMemo(() =>{
         if (location.pathname === '/feed'){
             return data
-        } else {
+        } else if(location.pathname === '/profile/orders') {
             return profileData
+        }else {
+            return null
         }
     },[location.pathname, data, profileData])
 
-    const { total, totalToday, orders } = finishData
+    const total = finishData?.total
+    const totalToday = finishData?.totalToday
+    const orders = finishData?.orders
 
     useEffect(() => {
         orders && orders.map((el: IFeedCard)  => {
             if (el.status === 'done' && !done.includes(el.number)) {
-                
                 setDone([...done, el.number])
             } else if (el.status === 'pending' && !pending.includes(el.number)){
                 setPending([...pending, el.number])
@@ -48,7 +51,7 @@ const FeedPage: FC = () => {
             <div className={styles.box}>
                 <li className={`${styles.list} custom-scroll`}>
                     {
-                        orders && orders.map((el: IFeedCard) => {
+                        orders && orders.map((el: { ingredients: string[]; _id: string; status: string; number: number; createdAt: string; updatedAt: string; }) => {
                             if (el) {
                                return <FeedCard arr={el} />   
                             }else {

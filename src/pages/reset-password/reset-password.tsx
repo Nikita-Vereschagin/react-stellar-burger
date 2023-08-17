@@ -1,18 +1,18 @@
             //Imports//
 
-import { useCallback } from "react";            
+import { useCallback, FC } from "react";            
 
 
 import styles from "./reset-password.module.css";
 
 import { PasswordInput, Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../..";
 import { useForm } from "../../hooks/useForm";
 import { api } from "../../utils/api";
 
 
-const ResetPasswordPage = () => {
+const ResetPasswordPage: FC = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { values, handleChange } = useForm({password: '', token: '' })

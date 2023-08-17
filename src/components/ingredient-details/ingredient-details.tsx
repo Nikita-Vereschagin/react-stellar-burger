@@ -13,9 +13,9 @@ const IngredientDetails: FC = () => {
 
             //Facilities//
 
-    const arr = useSelector(state => state.ingredientDetails)
+    const arr = useSelector(state => state.ingredientDetails.data)
 
-    return (arr &&
+    return (arr ?
         <>
             <h2 className={`text_type_main-large ${styles.title}`}>Детали ингредиента</h2>
             <img src={arr.image_large} alt={arr.name} className={styles.img} />
@@ -26,8 +26,8 @@ const IngredientDetails: FC = () => {
                 <li className={nutritionText}>{`Жиры, г ${arr.fat}`}</li>
                 <li className={nutritionText}>{`Углеводы, г ${arr.carbohydrates}`}</li>
             </ul>
-        </>
-    )
+        </> : <h1>Загрузка...</h1>
+    ) 
 }
 
 

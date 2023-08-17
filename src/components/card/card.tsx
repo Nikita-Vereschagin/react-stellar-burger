@@ -6,7 +6,7 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { useState, FC } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../..';
 import { SET_INGREDIENT_DETAILS } from '../../services/ingredientDetailsSlice';
 import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
@@ -16,7 +16,7 @@ const Card: FC<{ key?: string; arr: IBurgerIngredient }> = ({arr}) => {
 
             //Facilities//
 
-    const [modalVisibility, setModalVisibility] = useState(false)
+    const [modalVisibility, setModalVisibility] = useState<boolean>(false)
 
     const dispatch = useDispatch()
     const location = useLocation()
@@ -50,7 +50,7 @@ const Card: FC<{ key?: string; arr: IBurgerIngredient }> = ({arr}) => {
             </div>
             {modalVisibility && (<Modal visible={modalVisibility} closePopup={() => {
                 setModalVisibility(false)
-                dispatch(SET_INGREDIENT_DETAILS({}))
+                dispatch(SET_INGREDIENT_DETAILS(undefined))
             }}><IngredientDetails /></Modal>)}
         </Link>
     )

@@ -15,12 +15,13 @@ interface IOrderIngredient extends IBurgerIngredient {
 export interface IFeedCard {
     createdAt: string,
     ingredients: string[],
-    name: string,
+    name?: string,
     number: number,
     status: string,
     updatedAt: string,
     _id: string
 }
+
 
             //Constants//
 

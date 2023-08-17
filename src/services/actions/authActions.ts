@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { SET_AUTH_CHECKED, SET_USER } from "../userSlice.js";
-import { api } from "../../utils/api.js";
-import { AppDispatch } from "../../index.js";
+import { SET_AUTH_CHECKED, SET_USER } from "../userSlice";
+import { api } from "../../utils/api";
+import { AppDispatch } from "../../index";
 
 export const getUser = () => {
   return (dispatch: AppDispatch) => {

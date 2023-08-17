@@ -1,7 +1,7 @@
 
             //Imports//
 
-import { useState, useCallback, useEffect } from "react";            
+import { useState, useCallback, useEffect, FC } from "react";            
 
 
 import styles from "./profile.module.css";
@@ -12,12 +12,12 @@ import { patchUser } from "../../services/actions/authActions";
 import { useForm } from "../../hooks/useForm";
 
 
-const ProfilePage = () => {
+const ProfilePage: FC = () => {
   const userState = useSelector(state => state.user.user)
   const user = userState?.user
   const dispatch = useDispatch()
   const { values, handleChange, setValues } = useForm({...user, password: '' })
-  const [formEdited, setFormEdited] = useState(false);
+  const [formEdited, setFormEdited] = useState<boolean>(false);
 
   let subPatch = useCallback(
     e => {
@@ -28,10 +28,10 @@ const ProfilePage = () => {
   );
 
   useEffect(() => {
-    if (values.name !== user.name || values.email !== user.email || values.password !== ''){
+    if (values.name !== user?.name || values.email !== user?.email || values.password !== ''){
       setFormEdited(true)
     }else {setFormEdited(false)}
-  },[values, user.name, user.email])
+  },[values, user?.name, user?.email])
 
   const [disabled, setDisabled] = useState(true)
   

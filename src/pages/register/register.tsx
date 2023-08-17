@@ -1,7 +1,7 @@
 
             //Imports//
 
-import { useCallback } from "react";            
+import { useCallback, FC } from "react";            
 
 
 import styles from "./register.module.css";
@@ -9,10 +9,10 @@ import styles from "./register.module.css";
 import { EmailInput, Button, PasswordInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 import { register } from "../../services/actions/authActions";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../..";
 import { useForm } from "../../hooks/useForm";
 
-const RegistrationPage = () => {
+const RegistrationPage: FC = () => {
   const { values, handleChange } = useForm({name: '', email: '', password: '' })
   const dispatch = useDispatch()
 
@@ -31,7 +31,7 @@ const RegistrationPage = () => {
   return (
     <form className={styles.box} onSubmit={registerSub}>
         <h2 className={`text text_type_main-medium ${styles.text}`}>Регистрация</h2>
-        <Input placeholder="Имя" value={values.name} name="name" onChange={handleChange} extraClass='mb-6 mt-6' errorText={nameErr} error={values.name? values.name.length < 2 || !nameValidate : null} minLength={2} maxLength={30} required/>
+        <Input placeholder="Имя" value={values.name} name="name" onChange={handleChange} extraClass='mb-6 mt-6' errorText={nameErr} error={values.name? values.name.length < 2 || !nameValidate : undefined} minLength={2} maxLength={30} required/>
         <EmailInput isIcon={false} placeholder="E-mail" name="email" value={values.email} onChange={handleChange} required/>
         <PasswordInput placeholder="Пароль" name="password" value={values.password} onChange={handleChange} extraClass='mb-6 mt-6' required/>
         <Button htmlType="submit" size="medium" extraClass={styles.btn}>Зарегистрироваться</Button>
