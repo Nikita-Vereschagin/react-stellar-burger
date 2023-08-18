@@ -39,7 +39,7 @@ const Card: FC<ICard> = ({arr}) => {
         setModalVisibility(true)
     }
 
-    return (arr &&
+    return (arr ?
         <Link key={ingredientId} to={`/ingredients/${ingredientId}`} state={{ background: location }} className={styles.link}>
             <div ref={cardRef} className={styles.container} onClick={seeDetails}>
                 {arr.count && arr.count > 0 && <Counter size="default" extraClass="m-1" count={arr.count} />}
@@ -55,6 +55,7 @@ const Card: FC<ICard> = ({arr}) => {
                 dispatch(SET_INGREDIENT_DETAILS(undefined))
             }}><IngredientDetails /></Modal>)}
         </Link>
+        : <h1>Загрузка...</h1>
     )
 }
 

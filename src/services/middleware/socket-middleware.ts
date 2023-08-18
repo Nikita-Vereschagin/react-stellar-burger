@@ -1,14 +1,12 @@
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
-import { Dispatch } from "react";
-import { MiddlewareAPI } from "redux";
 
-interface IAction {type: string, payload: string | URL}
+interface IAction {type: string, payload: string | URL} 
 
 export const socketMiddleware = (wsActions: {[key: string]: ActionCreatorWithPayload<string> | ActionCreatorWithPayload<void>}) => {
-  return (store: MiddlewareAPI) => {
+  return (store:{ dispatch: (type: IAction) => void}) => {
     let socket: WebSocket | null = null;
 
-    return (next: Dispatch<IAction>) => (action:  IAction) => {
+    return (next: (arg: IAction) => void) => (action:  IAction) => {
       const { dispatch } = store;
       const { type } = action;
       const {
@@ -21,7 +19,6 @@ export const socketMiddleware = (wsActions: {[key: string]: ActionCreatorWithPay
         wsConnecting,
         wsDisconnect,
       } = wsActions;
-// Не пойму, что он от меня хочет. Пожалуйста, намекните ;0
       if (type === wsConnect.type) {
         socket = new WebSocket(action.payload);
         dispatch(wsConnecting());
