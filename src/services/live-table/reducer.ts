@@ -1,5 +1,5 @@
 import { PayloadAction, createReducer } from '@reduxjs/toolkit';
-import { WebsocketStatus } from '../../utils/live-table';
+import { WebsocketStatus } from '../../utils/types';
 import {
   wsConnecting,
   wsOpen,

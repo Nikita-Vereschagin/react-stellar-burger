@@ -2,7 +2,7 @@
             //Imports//
 
 import Card from '../card/card';
-import { useSelector } from '../..';
+import { useSelector } from '../../utils/types';
 
 import styles from './card-box.module.css'
 import { FC } from 'react';

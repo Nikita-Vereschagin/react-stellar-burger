@@ -3,7 +3,7 @@
 
 import styles from './ingredient-details.module.css';
 import { FC } from 'react';
-import { useSelector } from '../..';
+import { useSelector } from '../../utils/types';
 
             //Constants//
 

@@ -1,13 +1,18 @@
 import { FC, ReactNode } from "react";
-import { useSelector } from "..";
+import { useSelector } from "../utils/types";
 import { Navigate, useLocation } from "react-router-dom";
 
 interface IProtected {
   onlyUnAuth: boolean,
-  component: ReactNode
+  component: JSX.Element
 }
 
-const Protected: FC<IProtected> = (onlyUnAuth, component) => {
+interface IComponent{
+  component: JSX.Element
+}
+
+
+const Protected = ({onlyUnAuth, component}: IProtected): JSX.Element | null  => {
   const {isAuthChecked, user} = useSelector((store) => store.user);
   const location = useLocation();
   
@@ -27,9 +32,9 @@ const Protected: FC<IProtected> = (onlyUnAuth, component) => {
   return component;
 };
 
-export const OnlyAuth: FC<{component: ReactNode }> = (component) => (
+export const OnlyAuth = ({component}: IComponent): JSX.Element | null => (
   <Protected onlyUnAuth={false} component={component} />
 );
-export const OnlyUnAuth: FC<{component: ReactNode }> = (component) => (
+export const OnlyUnAuth= ({component}: IComponent): JSX.Element | null => (
   <Protected onlyUnAuth={true} component={component} />
 );

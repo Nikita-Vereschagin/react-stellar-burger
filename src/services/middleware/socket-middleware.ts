@@ -1,12 +1,22 @@
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { ActionCreatorWithPayload, ActionCreatorWithoutPayload, Middleware } from "@reduxjs/toolkit";
+import { RootState } from "../../utils/types";
 
-interface IAction {type: string, payload: string | URL} 
+export type TWsActionTypes = {
+  wsConnect: ActionCreatorWithPayload<string>;
+  wsDisconnect: ActionCreatorWithoutPayload;
+  wsSendMessage?: ActionCreatorWithPayload<any>;
+  wsConnecting: ActionCreatorWithoutPayload;
+  onOpen: ActionCreatorWithoutPayload;
+  onClose: ActionCreatorWithoutPayload;
+  onError: ActionCreatorWithPayload<string>;
+  onMessage: ActionCreatorWithPayload<any>;
+};
 
-export const socketMiddleware = (wsActions: {[key: string]: ActionCreatorWithPayload<string> | ActionCreatorWithPayload<void>}) => {
-  return (store:{ dispatch: (type: IAction) => void}) => {
+export const socketMiddleware = (wsActions: TWsActionTypes): Middleware<{}, RootState> => {
+  return (store) => {
     let socket: WebSocket | null = null;
 
-    return (next: (arg: IAction) => void) => (action:  IAction) => {
+    return (next) => (action) => {
       const { dispatch } = store;
       const { type } = action;
       const {
@@ -29,8 +39,8 @@ export const socketMiddleware = (wsActions: {[key: string]: ActionCreatorWithPay
           dispatch(onOpen());
         };
 
-        socket.onerror = (event: Event | string) => {
-          dispatch(onError(event));
+        socket.onerror = (event) => {
+          dispatch(onError("Error"));
         };
 
         socket.onmessage = (event) => {

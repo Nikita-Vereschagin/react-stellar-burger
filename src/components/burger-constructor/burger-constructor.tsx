@@ -6,7 +6,7 @@ import { CurrencyIcon, Button, ConstructorElement } from "@ya.praktikum/react-de
 import Modal from "../modal/modal";
 import { useState, useMemo, useCallback, FC } from 'react';
 import OrderDetails from "../order-details/order-details"
-import { useDispatch, useSelector } from "../..";
+import { useDispatch, useSelector } from "../../utils/types";
 import { useDrop } from "react-dnd";
 import { ADD_INGREDIENT, SET_BUN, SWAP_INGREDIENT } from "../../services/constructorSlice";
 import { INCREASE } from "../../services/ingredientsSlice";

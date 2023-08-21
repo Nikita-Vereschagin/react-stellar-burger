@@ -81,4 +81,8 @@ export const userSlice = createSlice({
 
 export const { SET_USER, SET_AUTH_CHECKED } = userSlice.actions;
 
+type TUserActionCreators = typeof userSlice.actions
+
+export type TUserActions = ReturnType<TUserActionCreators[keyof TUserActionCreators]>
+
 export default userSlice;

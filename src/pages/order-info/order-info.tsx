@@ -6,7 +6,7 @@ import OrderCard from '../../components/order-card/order-card';
 import styles from './order-info.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useLocation } from 'react-router-dom';
-import { useSelector } from '../..';
+import { useSelector } from '../../utils/types';
 import { api } from '../../utils/api';
 import { IBurgerIngredient } from '../../components/burger-constructor/burger-constructor';
 import { IFeedCard } from '../../components/feed-card/feed-card';

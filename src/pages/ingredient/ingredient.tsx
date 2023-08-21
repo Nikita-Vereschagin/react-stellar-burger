@@ -4,7 +4,7 @@
 import { useLocation } from 'react-router-dom';
 import { FC, useEffect, useState } from 'react';
 import styles from './ingredient.module.css';
-import { useSelector } from '../..';
+import { useSelector } from '../../utils/types';
 import { IBurgerIngredient } from '../../components/burger-constructor/burger-constructor';
 
             //Constants//

@@ -4,7 +4,7 @@
 import styles from "./app.module.css";
 
 import { FC, useEffect } from 'react';
-import { useDispatch } from "../..";
+import { useDispatch } from "../../utils/types";
 
 import AppHeader from "../app-header/app-header"
 
@@ -60,7 +60,7 @@ const App: FC = () => {
     }  
     return () => {
       dispatch(disconnect())
-      dispatch(profileDisconnect)
+      dispatch(profileDisconnect())
     }
   }, [location.pathname, dispatch])
 

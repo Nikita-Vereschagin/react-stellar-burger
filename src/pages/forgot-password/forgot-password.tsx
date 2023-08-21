@@ -7,7 +7,7 @@ import styles from "./forgot-password.module.css";
 
 import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "../..";
+import { useDispatch } from "../../utils/types";
 import { useForm } from "../../hooks/useForm";
 import { api } from "../../utils/api";
 import { FC } from 'react';

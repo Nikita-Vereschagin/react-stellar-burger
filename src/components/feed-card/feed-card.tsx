@@ -4,7 +4,7 @@
 import { FC, useEffect, useMemo, useState } from 'react';
 import styles from './feed-card.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from '../..';
+import { useSelector } from '../../utils/types';
 import { Link, useLocation } from 'react-router-dom';
 import { IBurgerIngredient } from '../burger-constructor/burger-constructor';
 

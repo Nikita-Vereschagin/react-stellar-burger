@@ -8,7 +8,7 @@ import styles from "./login.module.css";
 import { login } from "../../services/actions/authActions";
 import { EmailInput, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-import { useDispatch } from "../..";
+import { useDispatch } from "../../utils/types";
 import { useForm } from "../../hooks/useForm";
 
 

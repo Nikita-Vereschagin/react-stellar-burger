@@ -14,4 +14,8 @@ const orderSlice = createSlice({
 })
 export const { SET_ORDER_NUMBER } = orderSlice.actions
 
+type TOrderActionCreators = typeof orderSlice.actions
+
+export type TOrderDetailsActions = ReturnType<TOrderActionCreators[keyof TOrderActionCreators]>
+
 export default orderSlice

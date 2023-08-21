@@ -21,4 +21,8 @@ const ingredientDetailsSlice = createSlice({
 })
 export const { SET_INGREDIENT_DETAILS} = ingredientDetailsSlice.actions
 
+type TIngredientDetailsActionCreators = typeof ingredientDetailsSlice.actions
+
+export type TIngredientDetailsActions = ReturnType<TIngredientDetailsActionCreators[keyof TIngredientDetailsActionCreators]>
+
 export default ingredientDetailsSlice

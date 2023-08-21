@@ -3,7 +3,7 @@
 
 import styles from './order-details.module.css';
 import done from '../../images/done.jpg'
-import { useSelector } from '../..';
+import { useSelector } from '../../utils/types';
 import { FC } from 'react';
 
 const OrderDetails: FC = () => {

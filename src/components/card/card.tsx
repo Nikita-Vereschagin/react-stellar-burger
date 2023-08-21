@@ -6,7 +6,7 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { useState, FC } from 'react';
-import { useDispatch } from '../..';
+import { useDispatch } from '../../utils/types';
 import { SET_INGREDIENT_DETAILS } from '../../services/ingredientDetailsSlice';
 import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
@@ -42,7 +42,7 @@ const Card: FC<ICard> = ({arr}) => {
     return (arr ?
         <Link key={ingredientId} to={`/ingredients/${ingredientId}`} state={{ background: location }} className={styles.link}>
             <div ref={cardRef} className={styles.container} onClick={seeDetails}>
-                {arr.count && arr.count > 0 && <Counter size="default" extraClass="m-1" count={arr.count} />}
+                {arr.count !== undefined && arr.count > 0 ? <Counter size="default" extraClass="m-1" count={arr.count} /> : null}
                 <img className={styles.img} src={arr.image} alt={arr.name} />
                 <div className={`p-1 ${styles.price}`}>
                     <p className='text text_type_digits-default'>{arr.price}</p>

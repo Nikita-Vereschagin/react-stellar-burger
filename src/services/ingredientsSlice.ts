@@ -38,4 +38,8 @@ const ingredientsSlice = createSlice({
 })
 export const { SET_APIDATA, INCREASE, DECREASE } = ingredientsSlice.actions
 
+type TIngredientsActionCreators = typeof ingredientsSlice.actions
+
+export type TIngredientsActions = ReturnType<TIngredientsActionCreators[keyof TIngredientsActionCreators]>
+
 export default ingredientsSlice

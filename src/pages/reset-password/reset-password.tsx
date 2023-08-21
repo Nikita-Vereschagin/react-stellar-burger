@@ -7,7 +7,7 @@ import styles from "./reset-password.module.css";
 
 import { PasswordInput, Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { useDispatch } from "../..";
+import { useDispatch } from "../../utils/types";
 import { useForm } from "../../hooks/useForm";
 import { api } from "../../utils/api";
 

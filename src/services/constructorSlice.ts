@@ -36,4 +36,8 @@ const constructorSlice = createSlice({
 })
 export const { SET_BUN, ADD_INGREDIENT, DELETE_INGREDIENT, SWAP_INGREDIENT} = constructorSlice.actions
 
+type TConstuctorActionCreators = typeof constructorSlice.actions
+
+export type TConstructorActions = ReturnType<TConstuctorActionCreators[keyof TConstuctorActionCreators]>
+
 export default constructorSlice

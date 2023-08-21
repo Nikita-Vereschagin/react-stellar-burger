@@ -7,7 +7,7 @@ import { useState, useCallback, useEffect, FC } from "react";
 import styles from "./profile.module.css";
 
 import { EmailInput, PasswordInput, Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector, useDispatch } from "../..";
+import { useSelector, useDispatch } from "../../utils/types";
 import { patchUser } from "../../services/actions/authActions";
 import { useForm } from "../../hooks/useForm";
 

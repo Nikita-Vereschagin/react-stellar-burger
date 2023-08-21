@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { SET_AUTH_CHECKED, SET_USER } from "../userSlice";
 import { api } from "../../utils/api";
-import { AppDispatch } from "../../index";
+import { AppThunk } from "../../utils/types";
 
-export const getUser = () => {
-  return (dispatch: AppDispatch) => {
+export const getUser = (): AppThunk<Promise<unknown>> => {
+  return (dispatch) => {
     return api.getUserRequest().then((res) => {
       dispatch(SET_USER(res.user));
     });
@@ -48,8 +48,8 @@ export const register = createAsyncThunk(
   }
 );
 
-export const checkUserAuth = () => {
-  return (dispatch: AppDispatch) => {
+export const checkUserAuth = (): AppThunk => {
+  return (dispatch) => {
     if (localStorage.getItem("accessToken")) {
       dispatch(getUser())
         .catch(() => {

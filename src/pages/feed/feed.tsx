@@ -4,7 +4,7 @@
 import { useLocation } from 'react-router-dom';
 import styles from './feed.module.css';
 import FeedCard, { IFeedCard } from '../../components/feed-card/feed-card';
-import { useSelector } from '../..';
+import { useSelector } from '../../utils/types';
 import { FC, useEffect, useMemo, useState } from 'react';
 
             //Constants//
@@ -51,9 +51,9 @@ const FeedPage: FC = () => {
             <div className={styles.box}>
                 <li className={`${styles.list} custom-scroll`}>
                     {
-                        orders.map((el: { ingredients: string[]; _id: string; status: string; number: number; createdAt: string; updatedAt: string; }) => {
+                        orders.map((el: { ingredients: string[]; _id: string; status: string; number: number; createdAt: string; updatedAt: string; }, i) => {
                             if (el) {
-                               return <FeedCard arr={el} />   
+                               return <FeedCard key={i} arr={el} />   
                             }else {
                                 return null
                             }
